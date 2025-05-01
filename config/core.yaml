@@ -101,7 +101,7 @@ peer:
         # Important: The endpoints here have to be endpoints of peers in the same
         # organization, because the peer would refuse connecting to these endpoints
         # unless they are in the same organization as the peer.
-        bootstrap: 127.0.0.1:7051
+        bootstrap: 192.168.1.102:7051
 
         # NOTE: orgLeader and useLeaderElection parameters are mutual exclusive.
         # Setting both to true would result in the termination of the peer
@@ -751,7 +751,7 @@ ledger:
 ###############################################################################
 operations:
     # host and port for the operations server
-    listenAddress: 127.0.0.1:9443
+    listenAddress: 192.168.1.100:9443
 
     # TLS configuration for the operations endpoint
     tls:

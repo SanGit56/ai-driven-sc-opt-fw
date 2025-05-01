@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
+export PATH=$PATH:../bin
 export FABRIC_CFG_PATH=../config
 export ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
 export ORDERER_GENERAL_LISTENPORT=7050
 export ORDERER_GENERAL_LOCALMSPID=OrdererMSP
-export ORDERER_GENERAL_LOCALMSPDIR=/path/to/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp
+export ORDERER_GENERAL_LOCALMSPDIR=/home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/ordererOrganizations/example.com/orderers/orderer.example.com/msp
 
 orderer
 
