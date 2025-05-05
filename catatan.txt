@@ -2,6 +2,7 @@
 
 nama kanal:
 1. network.config
+2. scripts/createChannel.sh
 
 volume:
 1. compose/compose-test-net.yaml
@@ -12,7 +13,11 @@ nama jaringan:
 lainnya:
 1. network.sh
 2. organizations/ccp-generate.sh
-
+3. configtx/configtx.yaml
+4. scripts/envVar.sh
+5. scripts/orderer.sh
+6. scripts/setAnchorPeer.sh
+7. scripts/configUpdate.sh
 
 # struktur organizations/:
 .
