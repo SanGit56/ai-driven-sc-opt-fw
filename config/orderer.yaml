@@ -13,7 +13,7 @@
 ################################################################################
 General:
     # Listen address: The IP on which to bind to listen.
-    ListenAddress: 0.0.0.0
+    ListenAddress: 127.0.0.1
 
     # Listen port: The port on which to bind to listen.
     ListenPort: 7050
@@ -143,7 +143,7 @@ General:
             # Location of key store. If this is unset, a location will be
             # chosen using: 'LocalMSPDir'/keystore
             FileKeyStore:
-                KeyStore: ./msp/keystore
+                KeyStore:
 
         # Settings for the PKCS#11 crypto provider (i.e. when DEFAULT: PKCS11)
         PKCS11:
@@ -310,7 +310,7 @@ Debug:
 ################################################################################
 Operations:
     # host and port for the operations server
-    ListenAddress: 192.168.1.100:8443
+    ListenAddress: 127.0.0.1:8443
 
     # TLS configuration for the operations endpoint
     TLS:
@@ -366,7 +366,7 @@ Metrics:
 ################################################################################
 Admin:
     # host and port for the admin server
-    ListenAddress: 192.168.1.100:9443
+    ListenAddress: 127.0.0.1:9443
 
     # TLS configuration for the admin endpoint
     TLS:
