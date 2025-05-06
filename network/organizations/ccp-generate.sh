@@ -5,26 +5,26 @@ function one_line_pem {
 }
 
 function json_ccp {
-    local PP=$(one_line_pem $4)
-    local CP=$(one_line_pem $5)
+    local PP=$(one_line_pem $6)
+    local CP=$(one_line_pem $7)
     sed -e "s/\${ORG}/$1/" \
         -e "s/\${P0PORT}/$2/" \
-        -e "s/\${P1PORT}/$2/" \
-        -e "s/\${P2PORT}/$2/" \
-        -e "s/\${CAPORT}/$3/" \
+        -e "s/\${P1PORT}/$3/" \
+        -e "s/\${P2PORT}/$4/" \
+        -e "s/\${CAPORT}/$5/" \
         -e "s#\${PEERPEM}#$PP#" \
         -e "s#\${CAPEM}#$CP#" \
         organizations/ccp-template.json
 }
 
 function yaml_ccp {
-    local PP=$(one_line_pem $4)
-    local CP=$(one_line_pem $5)
+    local PP=$(one_line_pem $6)
+    local CP=$(one_line_pem $7)
     sed -e "s/\${ORG}/$1/" \
         -e "s/\${P0PORT}/$2/" \
-        -e "s/\${P1PORT}/$2/" \
-        -e "s/\${P2PORT}/$2/" \
-        -e "s/\${CAPORT}/$3/" \
+        -e "s/\${P1PORT}/$3/" \
+        -e "s/\${P2PORT}/$4/" \
+        -e "s/\${CAPORT}/$5/" \
         -e "s#\${PEERPEM}#$PP#" \
         -e "s#\${CAPEM}#$CP#" \
         organizations/ccp-template.yaml | sed -e $'s/\\\\n/\\\n          /g'
