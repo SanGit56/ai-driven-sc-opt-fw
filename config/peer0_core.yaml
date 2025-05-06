@@ -1,0 +1,37 @@
+peer:
+  id: peer0.org1.example.com
+  networkId: dev
+  listenAddress: 192.168.1.10:7051
+  address: 192.168.1.10:7051
+  addressAutoDetect: false
+  gateway:
+    enabled: true
+  gossip:
+    bootstrap: 192.168.1.11:8051
+    useLeaderElection: false
+    orgLeader: true
+    externalEndpoint: 192.168.1.10:7051
+  tls:
+    enabled: false
+  fileSystemPath: /data/peer0
+  mspConfigPath: /data/peer0/msp
+  localMspId: Org1MSP
+  localMspType: bccsp
+
+chaincode:
+  mode: dev
+  logging:
+    level: info
+    shim: warning
+
+ledger:
+  state:
+    stateDatabase: goleveldb
+  history:
+    enableHistoryDatabase: true
+
+operations:
+  listenAddress: 192.168.1.10:9443
+
+metrics:
+  provider: disabled

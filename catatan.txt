@@ -1,23 +1,22 @@
 # yang diubah di network/:
 
 nama kanal:
-1. network.config
-2. scripts/createChannel.sh
+1. network.config (v)
+2. scripts/createChannel.sh (v)
 
 volume:
-1. compose/compose-test-net.yaml
+1. compose/compose-test-net.yaml (v)
 
 nama jaringan:
-1. compose/compose-test-net.yaml
+1. compose/compose-test-net.yaml (v)
 
 lainnya:
-1. network.sh
-2. organizations/ccp-generate.sh
-3. configtx/configtx.yaml
-4. scripts/envVar.sh
-5. scripts/orderer.sh
-6. scripts/setAnchorPeer.sh
-7. scripts/configUpdate.sh
+1. network.sh (~)
+2. organizations/ccp-generate.sh (v)
+3. configtx/configtx.yaml (v)
+4. scripts/envVar.sh (v)
+5. scripts/setAnchorPeer.sh (v)
+6. scripts/createChannel.sh (v)
 
 # struktur organizations/:
 .
@@ -35,54 +34,6 @@ lainnya:
 │   │       │   └── tlscacerts
 │   │       │       └── tlsca.example.com-cert.pem
 │   │       ├── orderers
-│   │       │   ├── orderer2.example.com
-│   │       │   │   ├── msp
-│   │       │   │   │   ├── admincerts
-│   │       │   │   │   ├── cacerts
-│   │       │   │   │   │   └── ca.example.com-cert.pem
-│   │       │   │   │   ├── config.yaml
-│   │       │   │   │   ├── keystore
-│   │       │   │   │   │   └── priv_sk
-│   │       │   │   │   ├── signcerts
-│   │       │   │   │   │   └── orderer2.example.com-cert.pem
-│   │       │   │   │   └── tlscacerts
-│   │       │   │   │       └── tlsca.example.com-cert.pem
-│   │       │   │   └── tls
-│   │       │   │       ├── ca.crt
-│   │       │   │       ├── server.crt
-│   │       │   │       └── server.key
-│   │       │   ├── orderer3.example.com
-│   │       │   │   ├── msp
-│   │       │   │   │   ├── admincerts
-│   │       │   │   │   ├── cacerts
-│   │       │   │   │   │   └── ca.example.com-cert.pem
-│   │       │   │   │   ├── config.yaml
-│   │       │   │   │   ├── keystore
-│   │       │   │   │   │   └── priv_sk
-│   │       │   │   │   ├── signcerts
-│   │       │   │   │   │   └── orderer3.example.com-cert.pem
-│   │       │   │   │   └── tlscacerts
-│   │       │   │   │       └── tlsca.example.com-cert.pem
-│   │       │   │   └── tls
-│   │       │   │       ├── ca.crt
-│   │       │   │       ├── server.crt
-│   │       │   │       └── server.key
-│   │       │   ├── orderer4.example.com
-│   │       │   │   ├── msp
-│   │       │   │   │   ├── admincerts
-│   │       │   │   │   ├── cacerts
-│   │       │   │   │   │   └── ca.example.com-cert.pem
-│   │       │   │   │   ├── config.yaml
-│   │       │   │   │   ├── keystore
-│   │       │   │   │   │   └── priv_sk
-│   │       │   │   │   ├── signcerts
-│   │       │   │   │   │   └── orderer4.example.com-cert.pem
-│   │       │   │   │   └── tlscacerts
-│   │       │   │   │       └── tlsca.example.com-cert.pem
-│   │       │   │   └── tls
-│   │       │   │       ├── ca.crt
-│   │       │   │       ├── server.crt
-│   │       │   │       └── server.key
 │   │       │   └── orderer.example.com
 │   │       │       ├── msp
 │   │       │       │   ├── admincerts
@@ -186,69 +137,3 @@ lainnya:
 │       │               ├── ca.crt
 │       │               ├── client.crt
 │       │               └── client.key
-│       └── org2.example.com
-│           ├── ca
-│           │   ├── ca.org2.example.com-cert.pem
-│           │   └── priv_sk
-│           ├── connection-org2.json
-│           ├── connection-org2.yaml
-│           ├── msp
-│           │   ├── admincerts
-│           │   ├── cacerts
-│           │   │   └── ca.org2.example.com-cert.pem
-│           │   ├── config.yaml
-│           │   └── tlscacerts
-│           │       └── tlsca.org2.example.com-cert.pem
-│           ├── peers
-│           │   └── peer0.org2.example.com
-│           │       ├── msp
-│           │       │   ├── admincerts
-│           │       │   ├── cacerts
-│           │       │   │   └── ca.org2.example.com-cert.pem
-│           │       │   ├── config.yaml
-│           │       │   ├── keystore
-│           │       │   │   └── priv_sk
-│           │       │   ├── signcerts
-│           │       │   │   └── peer0.org2.example.com-cert.pem
-│           │       │   └── tlscacerts
-│           │       │       └── tlsca.org2.example.com-cert.pem
-│           │       └── tls
-│           │           ├── ca.crt
-│           │           ├── server.crt
-│           │           └── server.key
-│           ├── tlsca
-│           │   ├── priv_sk
-│           │   └── tlsca.org2.example.com-cert.pem
-│           └── users
-│               ├── Admin@org2.example.com
-│               │   ├── msp
-│               │   │   ├── admincerts
-│               │   │   ├── cacerts
-│               │   │   │   └── ca.org2.example.com-cert.pem
-│               │   │   ├── config.yaml
-│               │   │   ├── keystore
-│               │   │   │   └── priv_sk
-│               │   │   ├── signcerts
-│               │   │   │   └── Admin@org2.example.com-cert.pem
-│               │   │   └── tlscacerts
-│               │   │       └── tlsca.org2.example.com-cert.pem
-│               │   └── tls
-│               │       ├── ca.crt
-│               │       ├── client.crt
-│               │       └── client.key
-│               └── User1@org2.example.com
-│                   ├── msp
-│                   │   ├── admincerts
-│                   │   ├── cacerts
-│                   │   │   └── ca.org2.example.com-cert.pem
-│                   │   ├── config.yaml
-│                   │   ├── keystore
-│                   │   │   └── priv_sk
-│                   │   ├── signcerts
-│                   │   │   └── User1@org2.example.com-cert.pem
-│                   │   └── tlscacerts
-│                   │       └── tlsca.org2.example.com-cert.pem
-│                   └── tls
-│                       ├── ca.crt
-│                       ├── client.crt
-│                       └── client.key
