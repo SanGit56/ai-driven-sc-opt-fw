@@ -1,22 +1,22 @@
 Organizations:
-    - &SampleOrg
-        Name: SampleOrg
+    - &OrdererOrg
+        Name: OrdererOrg
         SkipAsForeign: false
-        ID: SampleOrg
-        MSPDir: msp
-        Policies: &SampleOrgPolicies
+        ID: OrdererMSP
+        MSPDir: ./network/organizations/ordererOrganizations/example.com/msp
+        Policies: &OrdererPolicies
             Readers:
                 Type: Signature
-                Rule: "OR('SampleOrg.member')"
+                Rule: "OR('OrdererMSP.member')"
             Writers:
                 Type: Signature
-                Rule: "OR('SampleOrg.member')"
+                Rule: "OR('OrdererMSP.member')"
             Admins:
                 Type: Signature
-                Rule: "OR('SampleOrg.admin')"
+                Rule: "OR('OrdererMSP.admin')"
             Endorsement:
                 Type: Signature
-                Rule: "OR('SampleOrg.member')"
+                Rule: "OR('OrdererMSP.member')"
         OrdererEndpoints:
             - "orderer.example.com:7050"
         AnchorPeers:
@@ -146,22 +146,22 @@ Profiles:
         Orderer:
             <<: *OrdererDefaults
             Organizations:
-                - *SampleOrg
+                - *OrdererOrg
         Consortiums:
             SampleConsortium:
                 Organizations:
-                    - *SampleOrg
+                    - *OrdererOrg
     SampleSingleMSPKafka:
         <<: *ChannelDefaults
         Orderer:
             <<: *OrdererDefaults
             OrdererType: kafka
             Organizations:
-                - *SampleOrg
+                - *OrdererOrg
         Consortiums:
             SampleConsortium:
                 Organizations:
-                    - *SampleOrg
+                    - *OrdererOrg
     SampleInsecureSolo:
         <<: *ChannelDefaults
         Orderer:
@@ -182,97 +182,97 @@ Profiles:
         Orderer:
             <<: *OrdererDefaults
             Organizations:
-                - <<: *SampleOrg
+                - <<: *OrdererOrg
                   Policies:
-                      <<: *SampleOrgPolicies
+                      <<: *OrdererPolicies
                       Admins:
                           Type: Signature
-                          Rule: "OR('SampleOrg.member')"
+                          Rule: "OR('OrdererMSP.member')"
         Application:
             <<: *ApplicationDefaults
             Organizations:
-                - <<: *SampleOrg
+                - <<: *OrdererOrg
                   Policies:
-                      <<: *SampleOrgPolicies
+                      <<: *OrdererPolicies
                       Admins:
                           Type: Signature
-                          Rule: "OR('SampleOrg.member')"
+                          Rule: "OR('OrdererMSP.member')"
         Consortiums:
             SampleConsortium:
                 Organizations:
-                    - <<: *SampleOrg
+                    - <<: *OrdererOrg
                       Policies:
-                          <<: *SampleOrgPolicies
+                          <<: *OrdererPolicies
                           Admins:
                               Type: Signature
-                              Rule: "OR('SampleOrg.member')"
+                              Rule: "OR('OrdererMSP.member')"
     SampleDevModeKafka:
         <<: *ChannelDefaults
         Orderer:
             <<: *OrdererDefaults
             OrdererType: kafka
             Organizations:
-                - <<: *SampleOrg
+                - <<: *OrdererOrg
                   Policies:
-                      <<: *SampleOrgPolicies
+                      <<: *OrdererPolicies
                       Admins:
                           Type: Signature
-                          Rule: "OR('SampleOrg.member')"
+                          Rule: "OR('OrdererMSP.member')"
         Application:
             <<: *ApplicationDefaults
             Organizations:
-                - <<: *SampleOrg
+                - <<: *OrdererOrg
                   Policies:
-                      <<: *SampleOrgPolicies
+                      <<: *OrdererPolicies
                       Admins:
                           Type: Signature
-                          Rule: "OR('SampleOrg.member')"
+                          Rule: "OR('OrdererMSP.member')"
         Consortiums:
             SampleConsortium:
                 Organizations:
-                    - <<: *SampleOrg
+                    - <<: *OrdererOrg
                       Policies:
-                          <<: *SampleOrgPolicies
+                          <<: *OrdererPolicies
                           Admins:
                               Type: Signature
-                              Rule: "OR('SampleOrg.member')"
+                              Rule: "OR('OrdererMSP.member')"
     SampleSingleMSPChannel:
         <<: *ChannelDefaults
         Consortium: SampleConsortium
         Application:
             <<: *ApplicationDefaults
             Organizations:
-                - <<: *SampleOrg
+                - <<: *OrdererOrg
     SampleDevModeEtcdRaft:
         <<: *ChannelDefaults
         Orderer:
             <<: *OrdererDefaults
             OrdererType: etcdraft
             Organizations:
-                - <<: *SampleOrg
+                - <<: *OrdererOrg
                   Policies:
-                      <<: *SampleOrgPolicies
+                      <<: *OrdererPolicies
                       Admins:
                           Type: Signature
-                          Rule: "OR('SampleOrg.member')"
+                          Rule: "OR('OrdererMSP.member')"
         Application:
             <<: *ApplicationDefaults
             Organizations:
-                - <<: *SampleOrg
+                - <<: *OrdererOrg
                   Policies:
-                      <<: *SampleOrgPolicies
+                      <<: *OrdererPolicies
                       Admins:
                           Type: Signature
-                          Rule: "OR('SampleOrg.member')"
+                          Rule: "OR('OrdererMSP.member')"
         Consortiums:
             SampleConsortium:
                 Organizations:
-                    - <<: *SampleOrg
+                    - <<: *OrdererOrg
                       Policies:
-                          <<: *SampleOrgPolicies
+                          <<: *OrdererPolicies
                           Admins:
                               Type: Signature
-                              Rule: "OR('SampleOrg.member')"
+                              Rule: "OR('OrdererMSP.member')"
     SampleAppChannelInsecureSolo:
         <<: *ChannelDefaults
         Orderer:
@@ -285,18 +285,18 @@ Profiles:
             <<: *OrdererDefaults
             OrdererType: etcdraft
             Organizations:
-                - <<: *SampleOrg
+                - <<: *OrdererOrg
                   Policies:
-                      <<: *SampleOrgPolicies
+                      <<: *OrdererPolicies
                       Admins:
                           Type: Signature
-                          Rule: "OR('SampleOrg.member')"
+                          Rule: "OR('OrdererMSP.member')"
         Application:
             <<: *ApplicationDefaults
             Organizations:
-                - <<: *SampleOrg
+                - <<: *OrdererOrg
                   Policies:
-                      <<: *SampleOrgPolicies
+                      <<: *OrdererPolicies
                       Admins:
                           Type: Signature
-                          Rule: "OR('SampleOrg.member')"
+                          Rule: "OR('OrdererMSP.member')"

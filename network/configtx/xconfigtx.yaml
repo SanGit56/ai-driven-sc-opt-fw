@@ -1,3 +1,17 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+---
+################################################################################
+#
+#   Section: Organizations
+#
+#   - This section defines the different organizational identities which will
+#   be referenced later in the configuration.
+#
+################################################################################
 Organizations:
   - &OrdererOrg
     # SampleOrg defines an MSP using the sampleconfig.  It should never be used
@@ -47,7 +61,25 @@ Organizations:
       Endorsement:
         Type: Signature
         Rule: "OR('Org1MSP.peer')"
-
+################################################################################
+#
+#   SECTION: Capabilities
+#
+#   - This section defines the capabilities of fabric network. This is a new
+#   concept as of v1.1.0 and should not be utilized in mixed networks with
+#   v1.0.x peers and orderers.  Capabilities define features which must be
+#   present in a fabric binary for that binary to safely participate in the
+#   fabric network.  For instance, if a new MSP type is added, newer binaries
+#   might recognize and validate the signatures from this type, while older
+#   binaries without this support would be unable to validate those
+#   transactions.  This could lead to different versions of the fabric binaries
+#   having different world states.  Instead, defining a capability for a channel
+#   informs those binaries without this capability that they must cease
+#   processing transactions until they have been upgraded.  For v1.0.x if any
+#   capabilities are defined (including a map with all capabilities turned off)
+#   then the v1.0.x peer will deliberately crash.
+#
+################################################################################
 Capabilities:
   # Channel capabilities apply to both the orderers and the peers and must be
   # supported by both.
@@ -80,7 +112,14 @@ Capabilities:
     # Prior to enabling V2.5 application capabilities, ensure that all
     # peers on a channel are at v2.5.0 or later.
     V2_5: true
-
+################################################################################
+#
+#   SECTION: Application
+#
+#   - This section defines the values to encode into a config transaction or
+#   genesis block for application related parameters
+#
+################################################################################
 Application: &ApplicationDefaults
   # Organizations is the list of orgs which are defined as participants on
   # the application side of the network
@@ -106,7 +145,14 @@ Application: &ApplicationDefaults
       Rule: "MAJORITY Endorsement"
   Capabilities:
     <<: *ApplicationCapabilities
-
+################################################################################
+#
+#   SECTION: Orderer
+#
+#   - This section defines the values to encode into a config transaction or
+#   genesis block for orderer related parameters
+#
+################################################################################
 Orderer: &OrdererDefaults
   # Addresses used to be the list of orderer addresses that clients and peers
   # could connect to.  However, this does not allow clients to associate orderer
@@ -149,7 +195,14 @@ Orderer: &OrdererDefaults
     BlockValidation:
       Type: ImplicitMeta
       Rule: "ANY Writers"
-
+################################################################################
+#
+#   CHANNEL
+#
+#   This section defines the values to encode into a config transaction or
+#   genesis block for channel related parameters.
+#
+################################################################################
 Channel: &ChannelDefaults
   # Policies defines the set of policies at this level of the config tree
   # For Channel policies, their canonical path is
@@ -172,7 +225,14 @@ Channel: &ChannelDefaults
   # description
   Capabilities:
     <<: *ChannelCapabilities
-
+################################################################################
+#
+#   Profile
+#
+#   - Different configuration profiles may be encoded here to be specified
+#   as parameters to the configtxgen tool
+#
+################################################################################
 Profiles:
   ChannelUsingRaft:
     <<: *ChannelDefaults
