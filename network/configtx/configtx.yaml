@@ -176,6 +176,7 @@ Channel: &ChannelDefaults
 Profiles:
   ChannelUsingRaft:
     <<: *ChannelDefaults
+    Consortium: SampleConsortium
     Orderer:
       <<: *OrdererDefaults
       OrdererType: etcdraft
