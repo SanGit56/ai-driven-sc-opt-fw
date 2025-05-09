@@ -1,0 +1,75 @@
+cd go/src/github.com/SanGit56/ai-driven-sc-opt-fw/bin/
+chmod +x *
+export PATH=$PATH=$(pwd)
+cd ../network/
+
+---
+
+### ✅ **Essential & Useful Folders/Files (Keep)**
+
+#### `config/`
+
+* Contains important config files. Only cleanup recommendation:
+
+  * ✅ `configtx.yaml`, `core.yaml`✅, `orderer.yaml` – necessary
+  * ❌ `peer0_core.yaml`, `peer1_core.yaml`, `peer2_core.yaml` – redundant if these are just minor variants of `core.yaml`; consider parameterizing instead.
+
+#### `network/`
+
+* Central hub of your deployment; has most network logic.
+
+  * ✅ `compose/` and `docker/` – needed if using Docker Compose for deployment
+  * ✅ `configtx/` – stores channel artifacts (required)
+  * ✅ `organizations/` – generated MSPs and certs (required)
+  * ✅ `scripts/` – helper scripts (very useful)
+  * ✅ `setOrgEnv.sh` – useful to configure peer environment variables
+
+---
+
+### ❓ **Possibly Redundant or Clean-up Candidates**
+
+Review these for clarity, duplication, or maintenance:
+
+#### 🔁 Multiple YAMLs and duplicates
+
+* You have:
+
+  * `configtx.yaml` in both `config/` and `network/configtx/`
+  * Same for `xconfigtx.yaml`, `core.yaml`, and `peer*_core.yaml` under different paths (`config/`, `compose/docker/`, etc.)
+
+  **Recommendation:**
+
+  * Use a single source of truth. Move most configs to `network/configtx/` and symbolic link or reference from Docker Compose or scripts if needed.
+
+#### 🧪 `network0.sh`, `network1.sh`, ..., `network9.sh`
+
+* These seem like variations or test scripts.
+  **Recommendation:**
+
+  * Keep only general-purpose ones like `network.sh`, `network_peers.sh`, etc.
+  * Rename or consolidate if these scripts serve similar purposes (e.g., bootstrapping different test cases).
+
+---
+
+### ❌ **Unnecessary (Optional to Remove)**
+
+Not strictly wrong, but may not be needed if unused:
+
+* `xconfigtx.yaml` – remove if not used in any script.
+* `compose-test-net.yaml` vs `docker-compose-test-net.yaml` – consolidate if both are used for the same purpose.
+* Generated certificates (`ordererOrganizations/...`) – consider excluding from Git and regenerating with scripts, unless needed for reproducibility or documentation.
+
+---
+
+### ✅ **Should Exist (Missing Components)**
+
+If not already present or handled elsewhere, consider adding:
+
+* `contracts/` or `chaincode/` – for smart contract source code.
+* `ai_balancer/` or `load_balancer/` – for the AI-driven component you’re implementing.
+* `test/` – if you want to document testing (unit or integration).
+* `docs/` – to store architecture diagrams or thesis-specific documentation.
+
+---
+
+Would you like help drafting a simplified structure for this, or organizing scripts/configs to reduce duplication?
