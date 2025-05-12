@@ -2,7 +2,7 @@ General:
     ListenAddress: 10.125.168.232
     ListenPort: 7050
     TLS:
-        Enabled: false
+        Enabled: true
         PrivateKey: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.key
         Certificate: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
         RootCAs:
@@ -24,8 +24,8 @@ General:
         ServerCertificate:
         ServerPrivateKey:
     BootstrapMethod: file
-    BootstrapFile: /etc/hyperledger/orderer/genesis.block
-    LocalMSPDir: ../network/organizations/ordererOrganizations/example.com/msp
+    BootstrapFile: ./system-genesis-block/genesis.block
+    LocalMSPDir: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp
     LocalMSPID: OrdererMSP
     Profile:
         Enabled: false
@@ -48,7 +48,7 @@ General:
     Authentication:
         TimeWindow: 15m
 FileLedger:
-    Location: /var/hyperledger/production/orderer
+    Location: ./production/orderer
 Debug:
     BroadcastTraceDir:
     DeliverTraceDir:
@@ -76,5 +76,5 @@ Admin:
         ClientAuthRequired: true
         ClientRootCAs: []
 Consensus:
-    WALDir: /var/hyperledger/production/orderer/etcdraft/wal
-    SnapDir: /var/hyperledger/production/orderer/etcdraft/snapshot
+    WALDir: ./production/orderer/etcdraft/wal
+    SnapDir: ./production/orderer/etcdraft/snapshot

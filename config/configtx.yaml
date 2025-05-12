@@ -129,108 +129,6 @@ Channel: &ChannelDefaults
         <<: *ChannelCapabilities
 
 Profiles:
-    SampleSingleMSPSolo:
-        <<: *ChannelDefaults
-        Orderer:
-            <<: *OrdererDefaults
-            Organizations:
-                - *OrdererOrg
-        Consortiums:
-            SampleConsortium:
-                Organizations:
-                    - *OrdererOrg
-    SampleSingleMSPKafka:
-        <<: *ChannelDefaults
-        Orderer:
-            <<: *OrdererDefaults
-            OrdererType: kafka
-            Organizations:
-                - *OrdererOrg
-        Consortiums:
-            SampleConsortium:
-                Organizations:
-                    - *OrdererOrg
-    SampleInsecureSolo:
-        <<: *ChannelDefaults
-        Orderer:
-            <<: *OrdererDefaults
-        Consortiums:
-            SampleConsortium:
-                Organizations:
-    SampleInsecureKafka:
-        <<: *ChannelDefaults
-        Orderer:
-            <<: *OrdererDefaults
-            OrdererType: kafka
-        Consortiums:
-            SampleConsortium:
-                Organizations:
-    SampleDevModeSolo:
-        <<: *ChannelDefaults
-        Orderer:
-            <<: *OrdererDefaults
-            Organizations:
-                - <<: *OrdererOrg
-                  Policies:
-                      <<: *OrdererPolicies
-                      Admins:
-                          Type: Signature
-                          Rule: "OR('OrdererMSP.member')"
-        Application:
-            <<: *ApplicationDefaults
-            Organizations:
-                - <<: *OrdererOrg
-                  Policies:
-                      <<: *OrdererPolicies
-                      Admins:
-                          Type: Signature
-                          Rule: "OR('OrdererMSP.member')"
-        Consortiums:
-            SampleConsortium:
-                Organizations:
-                    - <<: *OrdererOrg
-                      Policies:
-                          <<: *OrdererPolicies
-                          Admins:
-                              Type: Signature
-                              Rule: "OR('OrdererMSP.member')"
-    SampleDevModeKafka:
-        <<: *ChannelDefaults
-        Orderer:
-            <<: *OrdererDefaults
-            OrdererType: kafka
-            Organizations:
-                - <<: *OrdererOrg
-                  Policies:
-                      <<: *OrdererPolicies
-                      Admins:
-                          Type: Signature
-                          Rule: "OR('OrdererMSP.member')"
-        Application:
-            <<: *ApplicationDefaults
-            Organizations:
-                - <<: *OrdererOrg
-                  Policies:
-                      <<: *OrdererPolicies
-                      Admins:
-                          Type: Signature
-                          Rule: "OR('OrdererMSP.member')"
-        Consortiums:
-            SampleConsortium:
-                Organizations:
-                    - <<: *OrdererOrg
-                      Policies:
-                          <<: *OrdererPolicies
-                          Admins:
-                              Type: Signature
-                              Rule: "OR('OrdererMSP.member')"
-    SampleSingleMSPChannel:
-        <<: *ChannelDefaults
-        Consortium: SampleConsortium
-        Application:
-            <<: *ApplicationDefaults
-            Organizations:
-                - <<: *OrdererOrg
     SampleDevModeEtcdRaft:
         <<: *ChannelDefaults
         Orderer:
@@ -261,12 +159,6 @@ Profiles:
                           Admins:
                               Type: Signature
                               Rule: "OR('OrdererMSP.member')"
-    SampleAppChannelInsecureSolo:
-        <<: *ChannelDefaults
-        Orderer:
-            <<: *OrdererDefaults
-        Application:
-            <<: *ApplicationDefaults
     SampleAppChannelEtcdRaft:
         <<: *ChannelDefaults
         Orderer:

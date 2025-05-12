@@ -1,6 +1,5 @@
-cd bin
-export PATH=$PATH:$(pwd)
-cd ../network/
+export FABRIC_CFG_PATH=$PWD/../config
+export PATH="$PATH:$(pwd)/../bin"
 
 # generate orderer identity
 cryptogen generate --config=./organizations/cryptogen/crypto-config-orderer.yaml --output="organizations"
@@ -8,19 +7,27 @@ cryptogen generate --config=./organizations/cryptogen/crypto-config-orderer.yaml
 # generate organization/peer identity
 cryptogen generate --config=./organizations/cryptogen/crypto-config-org1.yaml --output="organizations"
 
-cd configtx
+cd ../config
+export FABRIC_CFG_PATH=$PWD
 
 # generate genesis block
-configtxgen -profile ChannelUsingRaft -outputBlock ./channel-artifacts/kanal_fabric.block -channelID kanal_fabric
+configtxgen -profile SampleDevModeEtcdRaft -outputBlock ./system-genesis-block/genesis.block -channelID system-channel
+
+cd ../network/configtx
+export FABRIC_CFG_PATH=$PWD
 
 # generate channel
-configtxgen -profile ChannelUsingRaft -outputCreateChannelTx ./channel-artifacts/kanal_fabric.tx -channelID kanal_fabric
+configtxgen -profile ChannelUsingRaft -outputCreateChannelTx ./channel-artifacts/kanal-fabric.tx -channelID kanal-fabric
 
 # update anchor peer transaction
-configtxgen -profile ChannelUsingRaft -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID kanal_fabric -asOrg Org1MSP
+configtxgen -profile ChannelUsingRaft -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID kanal-fabric -asOrg Org1MSP
+
+cd ../../config/
 
 # run orderer
 orderer
 
-# orderer script
-scripts/orderer.sh kanal_fabric
+cd ../network
+
+# orderer script (setelah create config block)
+scripts/orderer.sh system-channel

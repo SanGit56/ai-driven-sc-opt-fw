@@ -8,7 +8,7 @@ CC_SRC_LANGUAGE=$3
 CC_VERSION=$4
 CC_SEQUENCE=$5
 INIT_REQUIRED="--init-required"
-CHANNEL_NAME=kanal_fabric
+CHANNEL_NAME=kanal-fabric
 
 ORDERER_CA=$PWD/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt
 
