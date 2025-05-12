@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+NETWORK_DIR=${NETWORK_DIR:-${PWD}}
+export ORDERER_CA=${NETWORK_DIR}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt
 CHANNEL_NAME=$1
 
 if [ -z "$CHANNEL_NAME" ]; then
@@ -16,5 +18,4 @@ if [ -z "$ORDERER_CA" ]; then
   exit 1
 fi
 
-# -> Change 0.0.0.0 to actual hostname or IP used by orderer inside the network
-osnadmin channel join --channelID "$CHANNEL_NAME" --config-block ./channel-artifacts/${CHANNEL_NAME}.block -o 0.0.0.0:7053 --ca-file "$ORDERER_CA" --client-cert "$ORDERER_ADMIN_TLS_SIGN_CERT" --client-key "$ORDERER_ADMIN_TLS_PRIVATE_KEY"
+osnadmin channel join --channelID "$CHANNEL_NAME" --config-block ./configtx/channel-artifacts/${CHANNEL_NAME}.block -o 10.125.168.232:7050 --ca-file "$ORDERER_CA" --client-cert "$ORDERER_ADMIN_TLS_SIGN_CERT" --client-key "$ORDERER_ADMIN_TLS_PRIVATE_KEY"

@@ -6,9 +6,9 @@ PeerOrgs:
       Count: 3
       Start: 0
       SANS:
-        - # -> IP addresses or DNS hostnames of each peer
-        - # -> IP addresses or DNS hostnames of each peer
-        - # -> IP addresses or DNS hostnames of each peer
-      Hostname: {{.Prefix}}{{.Index}}
+        - 10.125.169.93
+        - 10.125.169.12
+        - 10.125.169.6
+        - org1.example.com
     Users:
       Count: 1

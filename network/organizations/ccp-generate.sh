@@ -28,14 +28,12 @@ function yaml_ccp {
         organizations/ccp-template.yaml | sed -e $'s/\\\\n/\\\n          /g'
 }
 
-# Make sure the ports match actual VM config
 P0PORT=7051
 P1PORT=8051
-P2PORT=10051
+P2PORT=9051
 CAPORT=7054
-PEERPEM=organizations/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
-CAPEM=organizations/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem
+PEERPEM=./peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
+CAPEM=./peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem
 
-# Make sure the directory exists
-echo "$(json_ccp $P0PORT $P1PORT $P2PORT $CAPORT $PEERPEM $CAPEM)" > organizations/peerOrganizations/org1.example.com/connection-org1.json
-echo "$(yaml_ccp $P0PORT $P1PORT $P2PORT $CAPORT $PEERPEM $CAPEM)" > organizations/peerOrganizations/org1.example.com/connection-org1.yaml
+echo "$(json_ccp $P0PORT $P1PORT $P2PORT $CAPORT $PEERPEM $CAPEM)" > ./peerOrganizations/org1.example.com/connection-org1.json
+echo "$(yaml_ccp $P0PORT $P1PORT $P2PORT $CAPORT $PEERPEM $CAPEM)" > ./peerOrganizations/org1.example.com/connection-org1.yaml

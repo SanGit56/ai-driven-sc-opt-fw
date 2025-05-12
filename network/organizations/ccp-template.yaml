@@ -1,5 +1,5 @@
 ---
-name: test-network-org1
+name: Org1MSP
 version: 1.0.0
 client:
   organization: Org1
@@ -16,7 +16,7 @@ organizations:
     - peer2.org1.example.com
 peers:
   peer0.org1.example.com:
-    url: grpcs://localhost:${P0PORT}
+    url: grpcs://10.125.169.93:${P0PORT}
     tlsCACerts:
       pem: |
           ${PEERPEM}
@@ -24,7 +24,7 @@ peers:
       ssl-target-name-override: peer0.org1.example.com
       hostnameOverride: peer0.org1.example.com
   peer1.org1.example.com:
-    url: grpcs://localhost:${P1PORT}
+    url: grpcs://10.125.169.12:${P1PORT}
     tlsCACerts:
       pem: |
           ${PEERPEM}
@@ -32,7 +32,7 @@ peers:
       ssl-target-name-override: peer1.org1.example.com
       hostnameOverride: peer1.org1.example.com
   peer2.org1.example.com:
-    url: grpcs://localhost:${P2PORT}
+    url: grpcs://10.125.169.6:${P2PORT}
     tlsCACerts:
       pem: |
           ${PEERPEM}

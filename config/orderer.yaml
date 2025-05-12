@@ -1,12 +1,12 @@
-General: # -> must match the address used in configtx.yaml under OrdererEndpoints and EtcdRaft.Consenters
-    ListenAddress: 127.0.0.1
+General:
+    ListenAddress: 10.125.168.232
     ListenPort: 7050
-    TLS: # -> If using etcdraft consensus, TLS is required. Set paths accordingly, should point to TLS certs of orderer
+    TLS:
         Enabled: false
-        PrivateKey: tls/server.key
-        Certificate: tls/server.crt
+        PrivateKey: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.key
+        Certificate: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
         RootCAs:
-          - tls/ca.crt
+          - ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt
         ClientAuthRequired: false
         ClientRootCAs:
     Keepalive:
@@ -25,8 +25,8 @@ General: # -> must match the address used in configtx.yaml under OrdererEndpoint
         ServerPrivateKey:
     BootstrapMethod: file
     BootstrapFile: /etc/hyperledger/orderer/genesis.block
-    LocalMSPDir: # -> should point to MSP directory for orderer
-    LocalMSPID: # -> match MSP ID for orderer organization; on configtx.yaml, it's OrdererMSP
+    LocalMSPDir: ../network/organizations/ordererOrganizations/example.com/msp
+    LocalMSPID: OrdererMSP
     Profile:
         Enabled: false
         Address: 0.0.0.0:6060

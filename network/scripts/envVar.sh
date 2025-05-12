@@ -1,24 +1,15 @@
 #!/usr/bin/env bash
-#
-# Copyright IBM Corp All Rights Reserved
-#
-# SPDX-License-Identifier: Apache-2.0
-#
 
-# This is a collection of bash functions used by different scripts
-
-# imports
-TEST_NETWORK_HOME=${TEST_NETWORK_HOME:-${PWD}}
-. ${TEST_NETWORK_HOME}/scripts/utils.sh
+NETWORK_DIR=${NETWORK_DIR:-${PWD}}
+. ${NETWORK_DIR}/scripts/utils.sh
 
 export CORE_PEER_TLS_ENABLED=true
-export ORDERER_CA=${TEST_NETWORK_HOME}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt
+export ORDERER_CA=${NETWORK_DIR}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt
 
-export PEER_ORG1_CA=${TEST_NETWORK_HOME}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
-export PEER1_ORG1_CA=${TEST_NETWORK_HOME}/organizations/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/ca.crt
-export PEER2_ORG1_CA=${TEST_NETWORK_HOME}/organizations/peerOrganizations/org1.example.com/peers/peer2.org1.example.com/tls/ca.crt
+export PEER_ORG1_CA=${NETWORK_DIR}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+export PEER1_ORG1_CA=${NETWORK_DIR}/organizations/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/ca.crt
+export PEER2_ORG1_CA=${NETWORK_DIR}/organizations/peerOrganizations/org1.example.com/peers/peer2.org1.example.com/tls/ca.crt
 
-# Set environment variables for peerN.org1
 setGlobals() {
   local PEER=$1
   local ORG=$2
@@ -31,17 +22,16 @@ setGlobals() {
 
   if [ "$ORG" -eq 1 ]; then
     export CORE_PEER_LOCALMSPID="Org1MSP"
-    export CORE_PEER_MSPCONFIGPATH=${TEST_NETWORK_HOME}/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+    export CORE_PEER_MSPCONFIGPATH=${NETWORK_DIR}/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
 
-    # adjust hostname
     if [ "$PEER" -eq 0 ]; then
-      export CORE_PEER_ADDRESS=localhost:7051
+      export CORE_PEER_ADDRESS=10.125.169.93:7051
       export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_ORG1_CA
     elif [ "$PEER" -eq 1 ]; then
-      export CORE_PEER_ADDRESS=localhost:8051
+      export CORE_PEER_ADDRESS=10.125.169.12:8051
       export CORE_PEER_TLS_ROOTCERT_FILE=$PEER1_ORG1_CA
     elif [ "$PEER" -eq 2 ]; then
-      export CORE_PEER_ADDRESS=localhost:9051
+      export CORE_PEER_ADDRESS=10.125.169.6:9051
       export CORE_PEER_TLS_ROOTCERT_FILE=$PEER2_ORG1_CA
     else
       errorln "Peer${PEER} in Org1 not recognized"
@@ -55,8 +45,6 @@ setGlobals() {
   fi
 }
 
-# Helper function to build peer connection parameters
-# Usage: parsePeerConnectionParameters peerID1 orgID1 peerID2 orgID2 ...
 parsePeerConnectionParameters() {
   PEER_CONN_PARMS=()
   PEERS=""

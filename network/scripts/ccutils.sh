@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# -o localhost:7050 -> should be orderer's url
-# --ordererTLSHostnameOverride orderer.example.com -> Adjust to match actual domain if different
-
 export FABRIC_CFG_PATH=$PWD/../config/
 
 CC_NAME=$1
@@ -44,7 +41,7 @@ queryInstalled() {
 approveForMyOrg() {
   setGlobals 0
   set -x
-  peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile "$ORDERER_CA" --channelID $CHANNEL_NAME --name ${CC_NAME} --version ${CC_VERSION} --package-id ${PACKAGE_ID} --sequence ${CC_SEQUENCE} ${INIT_REQUIRED} >&log.txt
+  peer lifecycle chaincode approveformyorg -o 10.125.168.232:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile "$ORDERER_CA" --channelID $CHANNEL_NAME --name ${CC_NAME} --version ${CC_VERSION} --package-id ${PACKAGE_ID} --sequence ${CC_SEQUENCE} ${INIT_REQUIRED} >&log.txt
   res=$?
   { set +x; } 2>/dev/null
   cat log.txt
@@ -57,7 +54,7 @@ commitChaincodeDefinition() {
   res=$?
   verifyResult $res "Parsing peer connection parameters failed"
   set -x
-  peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile "$ORDERER_CA" --channelID $CHANNEL_NAME --name ${CC_NAME} $PEER_CONN_PARMS --version ${CC_VERSION} --sequence ${CC_SEQUENCE} ${INIT_REQUIRED} >&log.txt
+  peer lifecycle chaincode commit -o 10.125.168.232:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile "$ORDERER_CA" --channelID $CHANNEL_NAME --name ${CC_NAME} $PEER_CONN_PARMS --version ${CC_VERSION} --sequence ${CC_SEQUENCE} ${INIT_REQUIRED} >&log.txt
   res=$?
   { set +x; } 2>/dev/null
   cat log.txt
@@ -70,7 +67,7 @@ chaincodeInvokeInit() {
   res=$?
   verifyResult $res "Parsing peer connection parameters failed"
   set -x
-  peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile "$ORDERER_CA" -C $CHANNEL_NAME -n ${CC_NAME} $PEER_CONN_PARMS --isInit -c '{"Args":[]}' >&log.txt
+  peer chaincode invoke -o 10.125.168.232:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile "$ORDERER_CA" -C $CHANNEL_NAME -n ${CC_NAME} $PEER_CONN_PARMS --isInit -c '{"Args":[]}' >&log.txt
   res=$?
   { set +x; } 2>/dev/null
   cat log.txt
@@ -99,8 +96,6 @@ function checkCommitReadiness() {
   infoln "Checking the commit readiness of the chaincode definition on peer0.org${ORG} on channel '$CHANNEL_NAME'..."
   local rc=1
   local COUNTER=1
-  # continue to poll
-  # we either get a successful response, or reach MAX RETRY
   while [ $rc -ne 0 -a $COUNTER -lt $MAX_RETRY ]; do
     sleep $DELAY
     infoln "Attempting to check the commit readiness of the chaincode definition on peer0.org${ORG}, Retry after $DELAY seconds."
@@ -130,8 +125,6 @@ function queryCommitted() {
   infoln "Querying chaincode definition on peer0.org${ORG} on channel '$CHANNEL_NAME'..."
   local rc=1
   local COUNTER=1
-  # continue to poll
-  # we either get a successful response, or reach MAX RETRY
   while [ $rc -ne 0 -a $COUNTER -lt $MAX_RETRY ]; do
     sleep $DELAY
     infoln "Attempting to Query committed status on peer0.org${ORG}, Retry after $DELAY seconds."
@@ -152,16 +145,12 @@ function queryCommitted() {
 }
 
 function resolveSequence() {
-
-  #if the sequence is not "auto", then use the provided sequence
   if [[ "${CC_SEQUENCE}" != "auto" ]]; then
     return 0
   fi
 
   local rc=1
   local COUNTER=1
-  # first, find the sequence number of the committed chaincode
-  # we either get a successful response, or reach MAX RETRY
   while [ $rc -ne 0 -a $COUNTER -lt $MAX_RETRY ]; do
     set -x
     COMMITTED_CC_SEQUENCE=$(peer lifecycle chaincode querycommitted --channelID $CHANNEL_NAME --name ${CC_NAME} | sed -n "/Version:/{s/.*Sequence: //; s/, Endorsement Plugin:.*$//; p;}")
@@ -171,7 +160,6 @@ function resolveSequence() {
     COUNTER=$(expr $COUNTER + 1)
   done
 
-  # if there are no committed versions, then set the sequence to 1
   if [ -z $COMMITTED_CC_SEQUENCE ]; then
     CC_SEQUENCE=1
     return 0
@@ -179,8 +167,6 @@ function resolveSequence() {
 
   rc=1
   COUNTER=1
-  # next, find the sequence number of the approved chaincode
-  # we either get a successful response, or reach MAX RETRY
   while [ $rc -ne 0 -a $COUNTER -lt $MAX_RETRY ]; do
     set -x
     APPROVED_CC_SEQUENCE=$(peer lifecycle chaincode queryapproved --channelID $CHANNEL_NAME --name ${CC_NAME} | sed -n "/sequence:/{s/^sequence: //; s/, version:.*$//; p;}")
@@ -190,8 +176,6 @@ function resolveSequence() {
     COUNTER=$(expr $COUNTER + 1)
   done
 
-  # if the committed sequence and the approved sequence match, then increment the sequence
-  # otherwise, use the approved sequence
   if [ $COMMITTED_CC_SEQUENCE == $APPROVED_CC_SEQUENCE ]; then
     CC_SEQUENCE=$((COMMITTED_CC_SEQUENCE+1))
   else
@@ -204,11 +188,7 @@ queryInstalledOnPeer() {
 
   local rc=1
   local COUNTER=1
-  # continue to poll
-  # we either get a successful response, or reach MAX RETRY
   while [ $rc -ne 0 -a $COUNTER -lt $MAX_RETRY ]; do
-    #sleep $DELAY
-    #infoln "Attempting to list on peer0.org${ORG}, Retry after $DELAY seconds."
     peer lifecycle chaincode queryinstalled >&log.txt
     res=$?
     let rc=$res
@@ -221,11 +201,7 @@ queryCommittedOnChannel() {
   CHANNEL=$1
   local rc=1
   local COUNTER=1
-  # continue to poll
-  # we either get a successful response, or reach MAX RETRY
   while [ $rc -ne 0 -a $COUNTER -lt $MAX_RETRY ]; do
-    #sleep $DELAY
-    #infoln "Attempting to list on peer0.org${ORG}, Retry after $DELAY seconds."
     peer lifecycle chaincode querycommitted -C $CHANNEL >&log.txt
     res=$?
     let rc=$res
@@ -238,13 +214,10 @@ queryCommittedOnChannel() {
 
 }
 
-## Function to list chaincodes installed on the peer and committed chaincode visible to the org
 listAllCommitted() {
 
   local rc=1
   local COUNTER=1
-  # continue to poll
-  # we either get a successful response, or reach MAX RETRY
   while [ $rc -ne 0 -a $COUNTER -lt $MAX_RETRY ]; do
     CHANNEL_LIST=$(peer channel list | sed '1,1d')
     res=$?
@@ -271,13 +244,11 @@ chaincodeInvoke() {
   infoln "Invoking on peer0.org${ORG} on channel '$CHANNEL_NAME'..."
   local rc=1
   local COUNTER=1
-  # continue to poll
-  # we either get a successful response, or reach MAX RETRY
   while [ $rc -ne 0 -a $COUNTER -lt $MAX_RETRY ]; do
     sleep $DELAY
     infoln "Attempting to Invoke on peer0.org${ORG}, Retry after $DELAY seconds."
     set -x
-    peer chaincode invoke -o localhost:7050 -C $CHANNEL_NAME -n ${CC_NAME} -c ${CC_INVOKE_CONSTRUCTOR} --tls --cafile $ORDERER_CA  --peerAddresses localhost:7051 --tlsRootCertFiles $PEER0_ORG1_CA --peerAddresses localhost:9051 --tlsRootCertFiles $PEER0_ORG2_CA  >&log.txt
+    peer chaincode invoke -o 10.125.168.232:7050 -C $CHANNEL_NAME -n ${CC_NAME} -c ${CC_INVOKE_CONSTRUCTOR} --tls --cafile $ORDERER_CA  --peerAddresses localhost:7051 --tlsRootCertFiles $PEER0_ORG1_CA --peerAddresses localhost:9051 --tlsRootCertFiles $PEER0_ORG2_CA  >&log.txt
     res=$?
     { set +x; } 2>/dev/null
     let rc=$res

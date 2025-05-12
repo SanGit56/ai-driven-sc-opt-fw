@@ -1,14 +1,11 @@
 #!/usr/bin/env bash
 
-# default to using Org1
 ORG=${1:-Org1}
 PEER=${2:-0}
 
-# Exit on first error, print all commands.
 set -e
 set -o pipefail
 
-# Where am I?
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
 ORDERER_CA=${DIR}/network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt
@@ -23,13 +20,13 @@ if [[ ${ORG,,} == "org1" || ${ORG,,} == "digibank" ]]; then
 
    # adjust hostname
    if [ "$PEER" -eq 0 ]; then
-      export CORE_PEER_ADDRESS=localhost:7051
+      export CORE_PEER_ADDRESS=10.125.169.93:7051
       export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_ORG1_CA
     elif [ "$PEER" -eq 1 ]; then
-      export CORE_PEER_ADDRESS=localhost:8051
+      export CORE_PEER_ADDRESS=10.125.169.12:8051
       export CORE_PEER_TLS_ROOTCERT_FILE=$PEER1_ORG1_CA
     elif [ "$PEER" -eq 2 ]; then
-      export CORE_PEER_ADDRESS=localhost:9051
+      export CORE_PEER_ADDRESS=10.125.169.6:9051
       export CORE_PEER_TLS_ROOTCERT_FILE=$PEER2_ORG1_CA
     else
       errorln "Peer${PEER} in Org1 not recognized"

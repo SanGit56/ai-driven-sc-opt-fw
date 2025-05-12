@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 
-# Load helper scripts
-TEST_NETWORK_HOME=${TEST_NETWORK_HOME:-${PWD}}
-. ${TEST_NETWORK_HOME}/scripts/configUpdate.sh
+NETWORK_DIR=${NETWORK_DIR:-${PWD}}
+. ${NETWORK_DIR}/scripts/configUpdate.sh
 
 createAnchorPeerUpdate() {
   infoln "Fetching channel config for channel $CHANNEL_NAME"
-  fetchChannelConfig $ORG $CHANNEL_NAME ${TEST_NETWORK_HOME}/channel-artifacts/${CORE_PEER_LOCALMSPID}config.json
+  fetchChannelConfig $ORG $CHANNEL_NAME ${NETWORK_DIR}/configtx/channel-artifacts/${CORE_PEER_LOCALMSPID}config.json
 
   infoln "Generating anchor peer update transaction for Org${ORG} on channel $CHANNEL_NAME"
 
@@ -27,16 +26,16 @@ createAnchorPeerUpdate() {
       },
       "version": "0"
     }
-  }' ${TEST_NETWORK_HOME}/channel-artifacts/${CORE_PEER_LOCALMSPID}config.json \
-  > ${TEST_NETWORK_HOME}/channel-artifacts/${CORE_PEER_LOCALMSPID}modified_config.json
+  }' ${NETWORK_DIR}/configtx/channel-artifacts/${CORE_PEER_LOCALMSPID}config.json \
+  > ${NETWORK_DIR}/configtx/channel-artifacts/${CORE_PEER_LOCALMSPID}modified_config.json
   res=$?
   { set +x; } 2>/dev/null
   verifyResult $res "Failed to modify channel config with anchor peer"
 
   createConfigUpdate ${CHANNEL_NAME} \
-    ${TEST_NETWORK_HOME}/channel-artifacts/${CORE_PEER_LOCALMSPID}config.json \
-    ${TEST_NETWORK_HOME}/channel-artifacts/${CORE_PEER_LOCALMSPID}modified_config.json \
-    ${TEST_NETWORK_HOME}/channel-artifacts/${CORE_PEER_LOCALMSPID}anchors.tx
+    ${NETWORK_DIR}/configtx/channel-artifacts/${CORE_PEER_LOCALMSPID}config.json \
+    ${NETWORK_DIR}/configtx/channel-artifacts/${CORE_PEER_LOCALMSPID}modified_config.json \
+    ${NETWORK_DIR}/configtx/channel-artifacts/${CORE_PEER_LOCALMSPID}anchors.tx
 }
 
 updateAnchorPeer() {
@@ -44,7 +43,7 @@ updateAnchorPeer() {
     -o orderer.example.com:7050 \
     --ordererTLSHostnameOverride orderer.example.com \
     -c $CHANNEL_NAME \
-    -f ${TEST_NETWORK_HOME}/channel-artifacts/${CORE_PEER_LOCALMSPID}anchors.tx \
+    -f ${NETWORK_DIR}/configtx/channel-artifacts/${CORE_PEER_LOCALMSPID}anchors.tx \
     --tls \
     --cafile "$ORDERER_CA" >&log.txt
 
@@ -54,13 +53,10 @@ updateAnchorPeer() {
   successln "Anchor peer set for org '$CORE_PEER_LOCALMSPID' on channel '$CHANNEL_NAME'"
 }
 
-# Parse args
 ORG=$1
 CHANNEL_NAME=$2
 
-# Load peer environment for the org
-setGlobals $ORG
+setGlobals 2 $ORG
 
-# Run anchor update
 createAnchorPeerUpdate
 updateAnchorPeer

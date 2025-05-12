@@ -16,26 +16,18 @@ println "- CC_VERSION: ${C_GREEN}${CC_VERSION}${C_RESET}"
 
 FABRIC_CFG_PATH=$PWD/../config/
 
-#User has not provided a name
 if [ -z "$CC_NAME" ] || [ "$CC_NAME" = "NA" ]; then
   fatalln "No chaincode name was provided. Valid call example: ./network.sh packageCC -ccn basic -ccp chaincode/asset-transfer-basic/chaincode-go -ccv 1.0 -ccl go"
-
-# User has not provided a path
 elif [ -z "$CC_SRC_PATH" ] || [ "$CC_SRC_PATH" = "NA" ]; then
   fatalln "No chaincode path was provided. Valid call example: ./network.sh packageCC -ccn basic -ccp chaincode/asset-transfer-basic/chaincode-go -ccv 1.0 -ccl go"
-
-# User has not provided a language
 elif [ -z "$CC_SRC_LANGUAGE" ] || [ "$CC_SRC_LANGUAGE" = "NA" ]; then
   fatalln "No chaincode language was provided. Valid call example: ./network.sh packageCC -ccn basic -ccp chaincode/asset-transfer-basic/chaincode-go -ccv 1.0 -ccl go"
-
-## Make sure that the path to the chaincode exists
 elif [ ! -d "$CC_SRC_PATH" ]; then
   fatalln "Path to chaincode does not exist. Please provide different path."
 fi
 
 CC_SRC_LANGUAGE=$(echo "$CC_SRC_LANGUAGE" | tr [:upper:] [:lower:])
 
-# do some language specific preparation to the chaincode before packaging
 if [ "$CC_SRC_LANGUAGE" = "go" ]; then
   CC_RUNTIME_LANGUAGE=golang
 
@@ -95,7 +87,6 @@ packageChaincode() {
   successln "Chaincode is packaged"
 }
 
-## package the chaincode
 packageChaincode
 
 exit 0

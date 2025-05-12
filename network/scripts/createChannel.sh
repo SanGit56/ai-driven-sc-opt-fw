@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-# imports  
 . scripts/envVar.sh
 
 CHANNEL_NAME="$1"
@@ -12,8 +11,8 @@ VERBOSE="$4"
 : ${MAX_RETRY:="5"}
 : ${VERBOSE:="false"}
 
-if [ ! -d "channel-artifacts" ]; then
-	mkdir channel-artifacts
+if [ ! -d "configtx/channel-artifacts" ]; then
+	mkdir configtx/channel-artifacts
 fi
 
 createChannelGenesisBlock() {
@@ -24,7 +23,7 @@ createChannelGenesisBlock() {
 	fi
 	set -x
 
-	configtxgen -profile ChannelUsingRaft -outputBlock ./channel-artifacts/${CHANNEL_NAME}.block -channelID $CHANNEL_NAME
+	configtxgen -profile ChannelUsingRaft -outputBlock ./configtx/channel-artifacts/${CHANNEL_NAME}.block -channelID $CHANNEL_NAME
 	
 	res=$?
 	{ set +x; } 2>/dev/null
@@ -32,7 +31,6 @@ createChannelGenesisBlock() {
 }
 
 createChannel() {
-	# Poll in case the raft leader is not set yet
 	local rc=1
 	local COUNTER=1
 	infoln "Adding orderers"
@@ -56,7 +54,7 @@ joinChannel() {
   setGlobals $ORG
 	local rc=1
 	local COUNTER=1
-	## Sometimes Join takes time, hence retry
+	
 	while [ $rc -ne 0 -a $COUNTER -lt $MAX_RETRY ] ; do
     sleep $DELAY
     set -x
@@ -72,28 +70,23 @@ joinChannel() {
 
 setAnchorPeer() {
   ORG=$1
-  . scripts/setAnchorPeer.sh $ORG $CHANNEL_NAME 
+  . scripts/setAnchorPeer.sh $ORG $CHANNEL_NAME
 }
 
-## Create channel genesis block
 FABRIC_CFG_PATH=$PWD/../config/
-BLOCKFILE="./channel-artifacts/${CHANNEL_NAME}.block"
+BLOCKFILE="./configtx/channel-artifacts/${CHANNEL_NAME}.block"
 
 infoln "Generating channel genesis block '${CHANNEL_NAME}.block'"
 FABRIC_CFG_PATH=${PWD}/configtx
 createChannelGenesisBlock
 
-
-## Create channel
 infoln "Creating channel ${CHANNEL_NAME}"
 createChannel
 successln "Channel '$CHANNEL_NAME' created"
 
-## Join all the peers to the channel
 infoln "Joining org1 peer to the channel..."
 joinChannel 1
 
-## Set the anchor peers for each org in the channel
 infoln "Setting anchor peer for org1..."
 setAnchorPeer 1
 
