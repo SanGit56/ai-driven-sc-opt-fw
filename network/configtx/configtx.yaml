@@ -2,7 +2,7 @@ Organizations:
   - &OrdererOrg
     Name: OrdererOrg
     ID: OrdererMSP
-    MSPDir: ../organizations/ordererOrganizations/example.com/msp
+    MSPDir: # -> should point to MSP directory for orderer
     Policies:
       Readers:
         Type: Signature
@@ -14,11 +14,11 @@ Organizations:
         Type: Signature
         Rule: "OR('OrdererMSP.admin')"
     OrdererEndpoints:
-      - orderer.example.com:7050
+      - # -> Confirm the address
   - &Org1
     Name: Org1MSP
     ID: Org1MSP
-    MSPDir: ../organizations/peerOrganizations/org1.example.com/msp
+    MSPDir: # -> relative to the container (pointing to correct MSP path for each peer)
     Policies:
       Readers:
         Type: Signature
@@ -105,7 +105,7 @@ Profiles:
         Consenters:
           - Host: orderer.example.com
             Port: 7050
-            ClientTLSCert: ../organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
+            ClientTLSCert: # -> Check the paths for the Raft consenters
             ServerTLSCert: ../organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
       Organizations:
         - *OrdererOrg

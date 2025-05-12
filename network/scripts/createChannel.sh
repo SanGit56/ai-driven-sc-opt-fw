@@ -7,20 +7,10 @@ CHANNEL_NAME="$1"
 DELAY="$2"
 MAX_RETRY="$3"
 VERBOSE="$4"
-BFT="$5"
 : ${CHANNEL_NAME:="kanal_fabric"}
 : ${DELAY:="3"}
 : ${MAX_RETRY:="5"}
 : ${VERBOSE:="false"}
-: ${BFT:=0}
-
-: ${CONTAINER_CLI:="docker"}
-if command -v ${CONTAINER_CLI}-compose > /dev/null 2>&1; then
-    : ${CONTAINER_CLI_COMPOSE:="${CONTAINER_CLI}-compose"}
-else
-    : ${CONTAINER_CLI_COMPOSE:="${CONTAINER_CLI} compose"}
-fi
-infoln "Using ${CONTAINER_CLI} and ${CONTAINER_CLI_COMPOSE}"
 
 if [ ! -d "channel-artifacts" ]; then
 	mkdir channel-artifacts
@@ -32,7 +22,6 @@ createChannelGenesisBlock() {
 	if [ "$?" -ne 0 ]; then
 		fatalln "configtxgen tool not found."
 	fi
-	local bft_true=$1
 	set -x
 
 	configtxgen -profile ChannelUsingRaft -outputBlock ./channel-artifacts/${CHANNEL_NAME}.block -channelID $CHANNEL_NAME
@@ -46,7 +35,6 @@ createChannel() {
 	# Poll in case the raft leader is not set yet
 	local rc=1
 	local COUNTER=1
-	local bft_true=$1
 	infoln "Adding orderers"
 	while [ $rc -ne 0 -a $COUNTER -lt $MAX_RETRY ] ; do
 		sleep $DELAY
@@ -93,15 +81,12 @@ BLOCKFILE="./channel-artifacts/${CHANNEL_NAME}.block"
 
 infoln "Generating channel genesis block '${CHANNEL_NAME}.block'"
 FABRIC_CFG_PATH=${PWD}/configtx
-if [ $BFT -eq 1 ]; then
-  FABRIC_CFG_PATH=${PWD}/bft-config
-fi
-createChannelGenesisBlock $BFT
+createChannelGenesisBlock
 
 
 ## Create channel
 infoln "Creating channel ${CHANNEL_NAME}"
-createChannel $BFT
+createChannel
 successln "Channel '$CHANNEL_NAME' created"
 
 ## Join all the peers to the channel

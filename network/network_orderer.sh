@@ -1,14 +1,17 @@
-# simpul orderer (v)
+# generate orderer identity
 cryptogen generate --config=./organizations/cryptogen/crypto-config-orderer.yaml --output="organizations"
 
-# simpul peer (v)
+# generate organization/peer identity
 cryptogen generate --config=./organizations/cryptogen/crypto-config-org1.yaml --output="organizations"
 
-# blok genesis (v)
+# generate genesis block
 configtxgen -profile ChannelUsingRaft -outputBlock ./channel-artifacts/kanal_fabric.block -channelID kanal_fabric
 
-# orderer buat saluran (v)
+# generate channel
 configtxgen -profile ChannelUsingRaft -outputCreateChannelTx ./channel-artifacts/kanal_fabric.tx -channelID kanal_fabric
 
-# orderer gabung saluran
-scripts/orderer.sh
+# update anchor peer transaction
+configtxgen -profile ChannelUsingRaft -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID kanal_fabric -asOrg Org1MSP
+
+# orderer script
+scripts/orderer.sh kanal_fabric

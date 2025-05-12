@@ -3,7 +3,7 @@ Organizations:
         Name: OrdererOrg
         SkipAsForeign: false
         ID: OrdererMSP
-        MSPDir: ./network/organizations/ordererOrganizations/example.com/msp
+        MSPDir: # -> actual local path
         Policies: &OrdererPolicies
             Readers:
                 Type: Signature
@@ -18,14 +18,10 @@ Organizations:
                 Type: Signature
                 Rule: "OR('OrdererMSP.member')"
         OrdererEndpoints:
-            - "orderer.example.com:7050"
-        AnchorPeers:
+            - # -> real IP or domain
+        AnchorPeers: # -> used for inter-org gossip; should be accessible hostnames or IPs of actual peers; 1/org
             - Host: peer0.org1.example.com
               Port: 7051
-            - Host: peer1.org1.example.com
-              Port: 8051
-            - Host: peer2.org1.example.com
-              Port: 9051
 
 Capabilities:
     Channel: &ChannelCapabilities
@@ -91,19 +87,11 @@ Orderer: &OrdererDefaults
             - kafka1:9092
             - kafka2:9092
     EtcdRaft:
-        Consenters:
+        Consenters: # -> Paths and hostnames/IPs must match how peers will reach the orderer
             - Host: raft0.example.com
               Port: 7050
               ClientTLSCert: path/to/ClientTLSCert0
               ServerTLSCert: path/to/ServerTLSCert0
-            - Host: raft1.example.com
-              Port: 7050
-              ClientTLSCert: path/to/ClientTLSCert1
-              ServerTLSCert: path/to/ServerTLSCert1
-            - Host: raft2.example.com
-              Port: 7050
-              ClientTLSCert: path/to/ClientTLSCert2
-              ServerTLSCert: path/to/ServerTLSCert2
         Options:
             TickInterval: 500ms
             ElectionTick: 10
