@@ -15,6 +15,9 @@ configtxgen -profile SampleDevModeEtcdRaft -outputBlock ./system-genesis-block/g
 cd ../network/configtx
 export FABRIC_CFG_PATH=$PWD
 
+# generate app genesis/config block
+configtxgen -profile ChannelUsingRaft -outputBlock ./channel-artifacts/kanal-fabric.block -channelID kanal-fabric
+
 # generate channel
 configtxgen -profile ChannelUsingRaft -outputCreateChannelTx ./channel-artifacts/kanal-fabric.tx -channelID kanal-fabric
 
