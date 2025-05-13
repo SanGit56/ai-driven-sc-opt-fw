@@ -1,4 +1,3 @@
-export FABRIC_CFG_PATH=$PWD/../config
 export PATH="$PATH:$(pwd)/../bin"
 
 # generate orderer identity
@@ -30,4 +29,4 @@ orderer
 cd ../network
 
 # orderer script (setelah create config block)
-scripts/orderer.sh system-channel
+scripts/orderer.sh kanal-fabric
