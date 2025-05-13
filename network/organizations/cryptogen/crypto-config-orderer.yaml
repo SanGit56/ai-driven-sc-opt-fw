@@ -6,3 +6,4 @@ OrdererOrgs:
       - Hostname: orderer
         SANS:
           - 10.125.168.232
+          - orderer.example.com

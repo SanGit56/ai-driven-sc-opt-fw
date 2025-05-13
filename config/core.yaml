@@ -1,8 +1,22 @@
+#   - PEER_ID=peer0.org1.example.com
+#   - PEER_ADDRESS=10.125.169.93:7051
+#   - PEER_GOSSIP_BOOTSTRAP=10.125.169.12:8051
+#   - PEER_GOSSIP_ENDPOINT=
+#   - PEER_GOSSIP_EXTERNALENDPOINT=10.125.169.93:7051
+#   - PEER_TLS_CERT_FILE=
+#   - PEER_TLS_KEY_FILE=
+#   - PEER_TLS_ROOTCERT_FILE=
+#   - PEER_TLS_CLIENT_ROOTCAs_FILE=
+#   - PEER_TLS_CLIENT_KEY_FILE=
+#   - PEER_TLS_CLIENT_CERT_FILE=
+#   - PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer0
+#   - PEER_LOCALMSPID=Org1MSP
+
 peer:
-    id: # → peer's hostname or logical name
-    networkId: # → 'dev' or network name
+    id: ${PEER_ID}
+    networkId: dev
     listenAddress: 0.0.0.0:7051
-    address: # -> IP or hostname peers will connect to (:7051)
+    address: ${PEER_ADDRESS}
     addressAutoDetect: false
     gateway:
         enabled: true
@@ -20,11 +34,11 @@ peer:
             interval: 60s
             timeout: 20s
     gossip:
-        bootstrap: # -> point to another peer in the org
+        bootstrap: ${PEER_GOSSIP_BOOTSTRAP}
         useLeaderElection: false
         orgLeader: true
         membershipTrackerInterval: 5s
-        endpoint:
+        endpoint: ${PEER_GOSSIP_ENDPOINT}
         maxBlockCountToStore: 10
         maxPropagationBurstLatency: 10ms
         maxPropagationBurstSize: 10
@@ -49,7 +63,7 @@ peer:
         reconnectInterval: 25s
         maxConnectionAttempts: 120
         msgExpirationFactor: 20
-        externalEndpoint: # -> required if peers are on different machines; set to the VM’s public IP + port
+        externalEndpoint: ${PEER_GOSSIP_EXTERNALENDPOINT}
         election:
             startupGracePeriod: 15s
             membershipSampleInterval: 1s
@@ -75,21 +89,21 @@ peer:
             blockBufferSize: 20
             maxRetries: 3
     tls:
-        enabled:  false # -> true if uses TLS
+        enabled: true
         clientAuthRequired: false
         cert:
-            file: tls/server.crt
+          file: ${PEER_TLS_CERT_FILE}
         key:
-            file: tls/server.key
+          file: ${PEER_TLS_KEY_FILE}
         rootcert:
-            file: tls/ca.crt
+          file: ${PEER_TLS_ROOTCERT_FILE}
         clientRootCAs:
-            files:
-              - tls/ca.crt
+          files:
+            - ${PEER_TLS_CLIENT_ROOTCAs_FILE}
         clientKey:
-            file:
+          file: ${PEER_TLS_CLIENT_KEY_FILE}
         clientCert:
-            file:
+          file: ${PEER_TLS_CLIENT_CERT_FILE}
     authentication:
         timewindow: 15m
     fileSystemPath: /var/hyperledger/production
@@ -110,8 +124,8 @@ peer:
             Immutable:
             AltID:
             KeyIds:
-    mspConfigPath: # -> relative to the container (pointing to correct MSP path for each peer)
-    localMspId: # -> match the actual MSP ID (e.g., Org1MSP)
+    mspConfigPath: ${PEER_MSP_CONFIG_PATH}
+    localMspId: ${PEER_LOCAL_MSP_ID}
     client:
         connTimeout: 3s
     deliveryclient:
@@ -155,12 +169,7 @@ peer:
             gatewayService: 500
     maxRecvMsgSize: 104857600
     maxSendMsgSize: 104857600
-vm:
-    endpoint: ""
 chaincode:
-    id:
-        path:
-        name:
     pull: false
     installTimeout: 300s
     startuptimeout: 300s
@@ -181,17 +190,6 @@ ledger:
   state:
     stateDatabase: goleveldb
     totalQueryLimit: 100000
-    couchDBConfig:
-       couchDBAddress: 127.0.0.1:5984
-       username:
-       password:
-       maxRetries: 3
-       maxRetriesOnStartup: 10
-       requestTimeout: 35s
-       internalQueryLimit: 1000
-       maxBatchUpdateSize: 1000
-       createGlobalChangesDB: false
-       cacheSize: 64
   history:
     enableHistoryDatabase: true
   pvtdataStore:
@@ -205,7 +203,7 @@ ledger:
 operations:
     listenAddress: 127.0.0.1:9443
     tls:
-        enabled: false # -> true if uses TLS
+        enabled: false
         cert:
             file:
         key:

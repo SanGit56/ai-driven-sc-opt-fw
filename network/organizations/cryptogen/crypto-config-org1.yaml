@@ -9,6 +9,8 @@ PeerOrgs:
         - 10.125.169.93
         - 10.125.169.12
         - 10.125.169.6
-        - org1.example.com
+        - peer0.org1.example.com
+        - peer1.org1.example.com
+        - peer2.org1.example.com
     Users:
       Count: 1
