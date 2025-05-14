@@ -164,6 +164,7 @@ Profiles:
                       Admins:
                           Type: Signature
                           Rule: "OR('OrdererMSP.member')"
+                - *Org1
         Consortiums:
             SampleConsortium:
                 Organizations:
