@@ -14,3 +14,13 @@
 15:02:39.832615 version@stat F·[1] S·194B[194B] Sc·[0.25]
 15:02:39.839890 db@janitor F·3 G·0
 15:02:39.839906 db@open done T·10.102047ms
+=============== May 14, 2025 (WIB) ===============
+13:29:30.275579 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+13:29:30.276208 version@stat F·[1] S·194B[194B] Sc·[0.25]
+13:29:30.276235 db@open opening
+13:29:30.276260 journal@recovery F·1
+13:29:30.277684 journal@recovery recovering @3
+13:29:30.279749 memdb@flush created L0@5 N·1 S·143B "sys..nfo,v6":"sys..nfo,v6"
+13:29:30.279831 version@stat F·[2] S·337B[337B] Sc·[0.50]
+13:29:30.286719 db@janitor F·4 G·0
+13:29:30.286730 db@open done T·10.491377ms

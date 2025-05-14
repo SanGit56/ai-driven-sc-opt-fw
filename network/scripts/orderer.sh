@@ -18,4 +18,4 @@ if [ -z "$ORDERER_CA" ]; then
   exit 1
 fi
 
-osnadmin channel join --channelID "$CHANNEL_NAME" --config-block ./configtx/channel-artifacts/${CHANNEL_NAME}.block -o 10.125.168.232:7050 --ca-file "$ORDERER_CA" --client-cert "$ORDERER_ADMIN_TLS_SIGN_CERT" --client-key "$ORDERER_ADMIN_TLS_PRIVATE_KEY"
+osnadmin channel join --channelID "$CHANNEL_NAME" --config-block ./configtx/channel-artifacts/${CHANNEL_NAME}.block -o 10.125.169.102:7050 --ca-file "$ORDERER_CA" --client-cert "$ORDERER_ADMIN_TLS_SIGN_CERT" --client-key "$ORDERER_ADMIN_TLS_PRIVATE_KEY"

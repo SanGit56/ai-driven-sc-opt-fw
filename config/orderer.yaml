@@ -1,5 +1,5 @@
 General:
-    ListenAddress: 10.125.168.232
+    ListenAddress: 10.125.169.102
     ListenPort: 7050
     TLS:
         Enabled: true

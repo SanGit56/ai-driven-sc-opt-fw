@@ -18,10 +18,24 @@ Organizations:
                 Type: Signature
                 Rule: "OR('OrdererMSP.member')"
         OrdererEndpoints:
-            - 10.125.168.232:7050
+            - 10.125.169.102:7050
         AnchorPeers:
             - Host: 10.125.169.6
               Port: 9051
+    - &Org1
+        Name: Org1
+        ID: Org1MSP
+        MSPDir: ../network/organizations/peerOrganizations/org1.example.com/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('Org1MSP.admin', 'Org1MSP.peer', 'Org1MSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('Org1MSP.admin', 'Org1MSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('Org1MSP.admin')"
 
 Capabilities:
     Channel: &ChannelCapabilities
@@ -88,7 +102,7 @@ Orderer: &OrdererDefaults
             - kafka2:9092
     EtcdRaft:
         Consenters:
-            - Host: 10.125.168.232
+            - Host: 10.125.169.102
               Port: 7050
               ClientTLSCert: ../network/organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/client.crt
               ServerTLSCert: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
@@ -159,6 +173,7 @@ Profiles:
                           Admins:
                               Type: Signature
                               Rule: "OR('OrdererMSP.member')"
+                    - *Org1
     SampleAppChannelEtcdRaft:
         <<: *ChannelDefaults
         Orderer:
