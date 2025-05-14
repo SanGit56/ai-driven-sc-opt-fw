@@ -22,7 +22,7 @@ configtxgen -profile ChannelUsingRaft -outputBlock ./channel-artifacts/kanal-fab
 configtxgen -profile ChannelUsingRaft -outputCreateChannelTx ./channel-artifacts/kanal-fabric.tx -channelID kanal-fabric
 
 # update anchor peer transaction
-configtxgen -profile ChannelUsingRaft -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID kanal-fabric -asOrg Org1MSP
+configtxgen -profile ChannelUsingRaft -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID kanal-fabric -asOrg Org1
 
 cd ../../config/
 

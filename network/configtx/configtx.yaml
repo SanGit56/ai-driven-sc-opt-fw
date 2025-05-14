@@ -16,7 +16,7 @@ Organizations:
     OrdererEndpoints:
       - 10.125.169.102:7050
   - &Org1
-    Name: Org1MSP
+    Name: Org1
     ID: Org1MSP
     MSPDir: ../organizations/peerOrganizations/org1.example.com/msp
     Policies:
