@@ -55,7 +55,7 @@ if [[ "$ORG_LOWER" == "org1" || "$ORG_LOWER" == "digibank" ]]; then
 else
   echo "Unknown organization \"$ORG\"."
   echo "Please choose from: Org1, Digibank"
-  echo "Usage: source ./setOrgEnv.sh Org1 0"
+  echo "Usage: source ./setOrgEnv.sh Org1 2"
   return 1
 fi
 
