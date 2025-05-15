@@ -47,6 +47,8 @@ General:
                 KeyStore:
     Authentication:
         TimeWindow: 15m
+ChannelParticipation:
+  Enabled: true
 FileLedger:
     Location: ./production/orderer
 Debug:
@@ -68,13 +70,14 @@ Metrics:
       WriteInterval: 30s
       Prefix:
 Admin:
-    ListenAddress: 127.0.0.1:9443
+    ListenAddress: 0.0.0.0:7053
     TLS:
-        Enabled: false
-        Certificate:
-        PrivateKey:
+        Enabled: true
+        Certificate: ../network/organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/client.crt
+        PrivateKey: ../network/organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/client.key
         ClientAuthRequired: true
-        ClientRootCAs: []
+        ClientRootCAs:
+            - ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt
 Consensus:
     WALDir: ./production/orderer/etcdraft/wal
     SnapDir: ./production/orderer/etcdraft/snapshot
