@@ -10,12 +10,12 @@ if [ -z "$CHANNEL_NAME" ]; then
 fi
 
 export PATH=${ROOTDIR}/../bin:${PWD}/../bin:$PATH
-export ORDERER_ADMIN_TLS_SIGN_CERT=${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
-export ORDERER_ADMIN_TLS_PRIVATE_KEY=${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.key
+export ORDERER_ADMIN_TLS_SIGN_CERT=${PWD}/organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/client.crt
+export ORDERER_ADMIN_TLS_PRIVATE_KEY=${PWD}/organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/client.key
 
 if [ -z "$ORDERER_CA" ]; then
   echo "Error: ORDERER_CA is not set in environment"
   exit 1
 fi
 
-osnadmin channel join --channelID "$CHANNEL_NAME" --config-block ./configtx/channel-artifacts/${CHANNEL_NAME}.block -o 10.125.169.102:7050 --ca-file "$ORDERER_CA" --client-cert "$ORDERER_ADMIN_TLS_SIGN_CERT" --client-key "$ORDERER_ADMIN_TLS_PRIVATE_KEY"
+osnadmin channel join --channelID "$CHANNEL_NAME" --config-block ./configtx/channel-artifacts/${CHANNEL_NAME}.block -o orderer.example.com:7053 --ca-file "$ORDERER_CA" --client-cert "$ORDERER_ADMIN_TLS_SIGN_CERT" --client-key "$ORDERER_ADMIN_TLS_PRIVATE_KEY"
