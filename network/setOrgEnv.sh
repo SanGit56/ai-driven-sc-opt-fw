@@ -15,16 +15,16 @@ ORG_LOWER=$(echo "$ORG" | tr '[:upper:]' '[:lower:]')
 if [[ "$ORG_LOWER" == "org1" || "$ORG_LOWER" == "digibank" ]]; then
 
   export CORE_PEER_LOCALMSPID="Org1MSP"
-  export PEER_TLS_CLIENT_ROOTCAs_FILE="${DIR}/network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/tls/ca.crt"
+  export PEER_TLS_CLIENT_ROOTCAs_FILE="${DIR}/network/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt"
   export PEER_TLS_CLIENT_KEY_FILE="${DIR}/network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/tls/client.key"
   export PEER_TLS_CLIENT_CERT_FILE="${DIR}/network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/tls/client.crt"
+  export CORE_PEER_MSPCONFIGPATH="${DIR}/network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp"
 
   case "$PEER" in
     0)
       export PEER_ID=peer0.org1.example.com
       export CORE_PEER_ADDRESS="10.125.169.93:7051"
       export PEER_GOSSIP_BOOTSTRAP=10.125.169.12:8051
-      export CORE_PEER_MSPCONFIGPATH="${DIR}/network/organizations/peerOrganizations/org1.example.com/peers/$PEER_ID/msp"
       export PEER_TLS_CERT_FILE="${DIR}/network/organizations/peerOrganizations/org1.example.com/peers/$PEER_ID/tls/server.crt"
       export PEER_TLS_KEY_FILE=="${DIR}/network/organizations/peerOrganizations/org1.example.com/peers/$PEER_ID/tls/server.key"
       export CORE_PEER_TLS_ROOTCERT_FILE="$PEER0_ORG1_CA"
@@ -33,7 +33,6 @@ if [[ "$ORG_LOWER" == "org1" || "$ORG_LOWER" == "digibank" ]]; then
       export PEER_ID=peer1.org1.example.com
       export CORE_PEER_ADDRESS="10.125.169.12:8051"
       export PEER_GOSSIP_BOOTSTRAP=10.125.169.6:9051
-      export CORE_PEER_MSPCONFIGPATH="${DIR}/network/organizations/peerOrganizations/org1.example.com/peers/$PEER_ID/msp"
       export PEER_TLS_CERT_FILE="${DIR}/network/organizations/peerOrganizations/org1.example.com/peers/$PEER_ID/tls/server.crt"
       export PEER_TLS_KEY_FILE=="${DIR}/network/organizations/peerOrganizations/org1.example.com/peers/$PEER_ID/tls/server.key"
       export CORE_PEER_TLS_ROOTCERT_FILE="$PEER1_ORG1_CA"
@@ -42,7 +41,6 @@ if [[ "$ORG_LOWER" == "org1" || "$ORG_LOWER" == "digibank" ]]; then
       export PEER_ID=peer2.org1.example.com
       export CORE_PEER_ADDRESS="10.125.169.6:9051"
       export PEER_GOSSIP_BOOTSTRAP=10.125.169.93:7051
-      export CORE_PEER_MSPCONFIGPATH="${DIR}/network/organizations/peerOrganizations/org1.example.com/peers/$PEER_ID/msp"
       export PEER_TLS_CERT_FILE="${DIR}/network/organizations/peerOrganizations/org1.example.com/peers/$PEER_ID/tls/server.crt"
       export PEER_TLS_KEY_FILE=="${DIR}/network/organizations/peerOrganizations/org1.example.com/peers/$PEER_ID/tls/server.key"
       export CORE_PEER_TLS_ROOTCERT_FILE="$PEER2_ORG1_CA"

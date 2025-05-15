@@ -1,30 +1,30 @@
-export PATH="$PATH:$(pwd)/../bin"
+export PATH="$PATH:$(pwd)/bin"
 
 # generate orderer identity
-cryptogen generate --config=./organizations/cryptogen/crypto-config-orderer.yaml --output="organizations"
+cryptogen generate --config=./network/organizations/cryptogen/crypto-config-orderer.yaml --output="organizations"
 
 # generate organization/peer identity
-cryptogen generate --config=./organizations/cryptogen/crypto-config-org1.yaml --output="organizations"
+cryptogen generate --config=./network/organizations/cryptogen/crypto-config-org1.yaml --output="organizations"
 
-cd ../config
-export FABRIC_CFG_PATH=$PWD
+# salin orderer & peer identity ke peer
+
+export FABRIC_CFG_PATH="$PWD/config"
 
 # generate genesis block
-configtxgen -profile SampleDevModeEtcdRaft -outputBlock ./system-genesis-block/genesis.block -channelID system-channel
+configtxgen -profile SampleDevModeEtcdRaft -outputBlock ./config/system-genesis-block/genesis.block -channelID system-channel
 
-cd ../network/configtx
-export FABRIC_CFG_PATH=$PWD
+export FABRIC_CFG_PATH="$PWD/network/configtx"
 
 # generate app genesis/config block
-configtxgen -profile ChannelUsingRaft -outputBlock ./channel-artifacts/kanal-fabric.block -channelID kanal-fabric
+configtxgen -profile ChannelUsingRaft -outputBlock ./network/configtx/channel-artifacts/kanal-fabric.block -channelID kanal-fabric
 
 # generate channel
-configtxgen -profile ChannelUsingRaft -outputCreateChannelTx ./channel-artifacts/kanal-fabric.tx -channelID kanal-fabric
+configtxgen -profile ChannelUsingRaft -outputCreateChannelTx ./network/configtx/channel-artifacts/kanal-fabric.tx -channelID kanal-fabric
 
 # update anchor peer transaction
-configtxgen -profile ChannelUsingRaft -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID kanal-fabric -asOrg Org1
+configtxgen -profile ChannelUsingRaft -outputAnchorPeersUpdate ./network/configtx/channel-artifacts/Org1MSPanchors.tx -channelID kanal-fabric -asOrg Org1
 
-cd ../../config/
+cd config
 
 # run orderer
 orderer
