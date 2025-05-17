@@ -3,10 +3,10 @@ General:
     ListenPort: 7050
     TLS:
         Enabled: true
-        PrivateKey: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.key
-        Certificate: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
+        PrivateKey: ~/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.key
+        Certificate: ~/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
         RootCAs:
-          - ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt
+          - ~/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt
         ClientAuthRequired: false
         ClientRootCAs:
     Keepalive:
@@ -24,8 +24,8 @@ General:
         ServerCertificate:
         ServerPrivateKey:
     BootstrapMethod: file
-    BootstrapFile: ./system-genesis-block/genesis.block
-    LocalMSPDir: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp
+    BootstrapFile: ~/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/config/system-genesis-block/genesis.block
+    LocalMSPDir: ~/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp
     LocalMSPID: OrdererMSP
     Profile:
         Enabled: false
@@ -50,7 +50,7 @@ General:
 ChannelParticipation:
   Enabled: true
 FileLedger:
-    Location: ./production/orderer
+    Location: ~/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/config/production/orderer
 Debug:
     BroadcastTraceDir:
     DeliverTraceDir:
@@ -73,11 +73,11 @@ Admin:
     ListenAddress: 0.0.0.0:7053
     TLS:
         Enabled: true
-        Certificate: ../network/organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/client.crt
-        PrivateKey: ../network/organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/client.key
+        Certificate: ~/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/client.crt
+        PrivateKey: ~/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/client.key
         ClientAuthRequired: true
         ClientRootCAs:
-            - ../network/organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/ca.crt
+            - ~/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/ca.crt
 Consensus:
-    WALDir: ./production/orderer/etcdraft/wal
-    SnapDir: ./production/orderer/etcdraft/snapshot
+    WALDir: ~/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/config/production/orderer/etcdraft/wal
+    SnapDir: ~/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/config/production/orderer/etcdraft/snapshot
