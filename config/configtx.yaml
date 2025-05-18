@@ -3,7 +3,7 @@ Organizations:
         Name: OrdererOrg
         SkipAsForeign: false
         ID: OrdererMSP
-        MSPDir: ../network/organizations/ordererOrganizations/example.com/msp
+        MSPDir: /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/ordererOrganizations/example.com/msp
         Policies: &OrdererPolicies
             Readers:
                 Type: Signature
@@ -25,7 +25,7 @@ Organizations:
     - &Org1
         Name: Org1
         ID: Org1MSP
-        MSPDir: ../network/organizations/peerOrganizations/org1.example.com/msp
+        MSPDir: /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/peerOrganizations/org1.example.com/msp
         Policies:
             Readers:
                 Type: Signature
@@ -104,8 +104,8 @@ Orderer: &OrdererDefaults
         Consenters:
             - Host: 10.125.169.102
               Port: 7050
-              ClientTLSCert: ../network/organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/client.crt
-              ServerTLSCert: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
+              ClientTLSCert: /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/client.crt
+              ServerTLSCert: /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
         Options:
             TickInterval: 500ms
             ElectionTick: 10

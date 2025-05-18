@@ -11,18 +11,18 @@ cryptogen generate --config=./network/organizations/cryptogen/crypto-config-org1
 export FABRIC_CFG_PATH="$PWD/config"
 
 # generate genesis block
-configtxgen -profile SampleDevModeEtcdRaft -outputBlock ./config/system-genesis-block/genesis.block -channelID system-channel
+configtxgen -profile SampleDevModeEtcdRaft -outputBlock /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/config/system-genesis-block/genesis.block -channelID system-channel
 
 export FABRIC_CFG_PATH="$PWD/network/configtx"
 
 # generate app genesis/config block
-configtxgen -profile ChannelUsingRaft -outputBlock ./network/configtx/channel-artifacts/kanal-fabric.block -channelID kanal-fabric
+configtxgen -profile ChannelUsingRaft -outputBlock /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/configtx/channel-artifacts/kanal-fabric.block -channelID kanal-fabric
 
 # generate channel
-configtxgen -profile ChannelUsingRaft -outputCreateChannelTx ./network/configtx/channel-artifacts/kanal-fabric.tx -channelID kanal-fabric
+configtxgen -profile ChannelUsingRaft -outputCreateChannelTx /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/configtx/channel-artifacts/kanal-fabric.tx -channelID kanal-fabric
 
 # update anchor peer transaction
-configtxgen -profile ChannelUsingRaft -outputAnchorPeersUpdate ./network/configtx/channel-artifacts/Org1MSPanchors.tx -channelID kanal-fabric -asOrg Org1
+configtxgen -profile ChannelUsingRaft -outputAnchorPeersUpdate /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/configtx/channel-artifacts/Org1MSPanchors.tx -channelID kanal-fabric -asOrg Org1
 
 cd config
 
