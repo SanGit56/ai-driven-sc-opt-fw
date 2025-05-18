@@ -3,10 +3,10 @@ General:
     ListenPort: 7050
     TLS:
         Enabled: true
-        PrivateKey: /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.key
-        Certificate: /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
+        PrivateKey: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.key
+        Certificate: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
         RootCAs:
-          - /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt
+          - ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt
         ClientAuthRequired: false
         ClientRootCAs:
     Keepalive:
@@ -24,8 +24,8 @@ General:
         ServerCertificate:
         ServerPrivateKey:
     BootstrapMethod: file
-    BootstrapFile: /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/config/system-genesis-block/genesis.block
-    LocalMSPDir: /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp
+    BootstrapFile: ./config/system-genesis-block/genesis.block
+    LocalMSPDir: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp
     LocalMSPID: OrdererMSP
     Profile:
         Enabled: false
@@ -50,7 +50,7 @@ General:
 ChannelParticipation:
   Enabled: true
 FileLedger:
-    Location: /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/config/production/orderer
+    Location: ./config/production/orderer
 Debug:
     BroadcastTraceDir:
     DeliverTraceDir:
@@ -73,11 +73,11 @@ Admin:
     ListenAddress: 0.0.0.0:7053
     TLS:
         Enabled: true
-        Certificate: /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/client.crt
-        PrivateKey: /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/client.key
+        Certificate: ../network/organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/client.crt
+        PrivateKey: ../network/organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/client.key
         ClientAuthRequired: true
         ClientRootCAs:
-            - ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt
+            - .../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt
 Consensus:
-    WALDir: /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/config/production/orderer/etcdraft/wal
-    SnapDir: /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/config/production/orderer/etcdraft/snapshot
+    WALDir: ./config/production/orderer/etcdraft/wal
+    SnapDir: ./config/production/orderer/etcdraft/snapshot

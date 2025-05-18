@@ -32,8 +32,8 @@ P0PORT=7051
 P1PORT=8051
 P2PORT=9051
 CAPORT=7054
-PEERPEM=/home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
-CAPEM=/home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem
+PEERPEM=./peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
+CAPEM=./peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem
 
-echo "$(json_ccp $P0PORT $P1PORT $P2PORT $CAPORT $PEERPEM $CAPEM)" > /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/peerOrganizations/org1.example.com/connection-org1.json
-echo "$(yaml_ccp $P0PORT $P1PORT $P2PORT $CAPORT $PEERPEM $CAPEM)" > /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/peerOrganizations/org1.example.com/connection-org1.yaml
+echo "$(json_ccp $P0PORT $P1PORT $P2PORT $CAPORT $PEERPEM $CAPEM)" > ./peerOrganizations/org1.example.com/connection-org1.json
+echo "$(yaml_ccp $P0PORT $P1PORT $P2PORT $CAPORT $PEERPEM $CAPEM)" > ./peerOrganizations/org1.example.com/connection-org1.yaml
