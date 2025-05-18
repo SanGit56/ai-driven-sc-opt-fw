@@ -2,7 +2,7 @@ Organizations:
   - &OrdererOrg
     Name: OrdererOrg
     ID: OrdererMSP
-    MSPDir: ~/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/ordererOrganizations/example.com/msp
+    MSPDir: /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/ordererOrganizations/example.com/msp
     Policies:
       Readers:
         Type: Signature
@@ -18,7 +18,7 @@ Organizations:
   - &Org1
     Name: Org1
     ID: Org1MSP
-    MSPDir: ~/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/peerOrganizations/org1.example.com/msp
+    MSPDir: /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/peerOrganizations/org1.example.com/msp
     Policies:
       Readers:
         Type: Signature
@@ -108,8 +108,8 @@ Profiles:
         Consenters:
           - Host: 10.125.169.102
             Port: 7050
-            ClientTLSCert: ~/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/client.crt
-            ServerTLSCert: ~/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
+            ClientTLSCert: /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/client.crt
+            ServerTLSCert: /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
       Organizations:
         - *OrdererOrg
       Capabilities: *OrdererCapabilities

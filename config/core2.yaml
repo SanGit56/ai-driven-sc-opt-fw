@@ -78,21 +78,21 @@ peer:
         enabled: true
         clientAuthRequired: false
         cert:
-          file: ~/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/peerOrganizations/org1.example.com/peers/$PEER_ID/tls/server.crt
+          file: /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/peerOrganizations/org1.example.com/peers/$PEER_ID/tls/server.crt
         key:
-          file: ~/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/peerOrganizations/org1.example.com/peers/$PEER_ID/tls/server.key
+          file: /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/peerOrganizations/org1.example.com/peers/$PEER_ID/tls/server.key
         rootcert:
-          file: ~/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/peerOrganizations/org1.example.com/peers/peer2.org1.example.com/tls/ca.crt
+          file: /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/peerOrganizations/org1.example.com/peers/peer2.org1.example.com/tls/ca.crt
         clientRootCAs:
           files:
-            - ~/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/tls/ca.crt
+            - /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/tls/ca.crt
         clientKey:
-          file: ~/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/tls/client.key
+          file: /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/tls/client.key
         clientCert:
-          file: ~/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/tls/client.crt
+          file: /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/tls/client.crt
     authentication:
         timewindow: 15m
-    fileSystemPath: ~/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/config/production
+    fileSystemPath: /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/config/production
     BCCSP:
         Default: SW
         SW:
@@ -110,7 +110,7 @@ peer:
             Immutable:
             AltID:
             KeyIds:
-    mspConfigPath: ~/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+    mspConfigPath: /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
     localMspId: Org1MSP
     client:
         connTimeout: 3s
@@ -185,7 +185,7 @@ ledger:
     purgeInterval: 100
     purgedKeyAuditLogging: true
   snapshots:
-    rootDir: ~/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/config/production/snapshots
+    rootDir: /home/loadbalancer/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/config/production/snapshots
 operations:
     listenAddress: 127.0.0.1:9443
     tls:
