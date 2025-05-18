@@ -1,10 +1,10 @@
 export PATH="$PATH:$(pwd)/bin"
 
 # generate orderer identity
-cryptogen generate --config=./network/organizations/cryptogen/crypto-config-orderer.yaml --output="organizations"
+cryptogen generate --config=./network/organizations/cryptogen/crypto-config-orderer.yaml --output="network/organizations"
 
 # generate organization/peer identity
-cryptogen generate --config=./network/organizations/cryptogen/crypto-config-org1.yaml --output="organizations"
+cryptogen generate --config=./network/organizations/cryptogen/crypto-config-org1.yaml --output="network/organizations"
 
 # salin orderer & peer identity ke peer
 
@@ -32,4 +32,4 @@ orderer
 cd ../network
 
 # orderer script (setelah create config block)
-scripts/orderer.sh kanal-fabric
+scripts/orderer.sh
