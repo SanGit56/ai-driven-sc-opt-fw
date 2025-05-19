@@ -108,7 +108,7 @@ Profiles:
         Consenters:
           - Host: 10.125.169.102
             Port: 7050
-            ClientTLSCert: ../organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/client.crt
+            ClientTLSCert: ../organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
             ServerTLSCert: ../organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
       Organizations:
         - *OrdererOrg

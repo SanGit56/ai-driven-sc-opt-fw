@@ -67,6 +67,8 @@ Application: &ApplicationDefaults
         event/Block: /Channel/Application/Readers
         event/FilteredBlock: /Channel/Application/Readers
     Organizations:
+        - *OrdererOrg
+        - *Org1
     Policies: &ApplicationDefaultPolicies
         LifecycleEndorsement:
             Type: ImplicitMeta
@@ -87,7 +89,7 @@ Application: &ApplicationDefaults
         <<: *ApplicationCapabilities
 
 Orderer: &OrdererDefaults
-    OrdererType: solo
+    OrdererType: etcdraft
     Addresses:
     BatchTimeout: 2s
     BatchSize:
@@ -104,7 +106,7 @@ Orderer: &OrdererDefaults
         Consenters:
             - Host: 10.125.169.102
               Port: 7050
-              ClientTLSCert: ../network/organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/client.crt
+              ClientTLSCert: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
               ServerTLSCert: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
         Options:
             TickInterval: 500ms
@@ -112,6 +114,8 @@ Orderer: &OrdererDefaults
             MaxInflightBlocks: 5
             SnapshotIntervalSize: 16 MB
     Organizations:
+        - *OrdererOrg
+        - *Org1
     Policies:
         Readers:
             Type: ImplicitMeta
@@ -187,6 +191,7 @@ Profiles:
                       Admins:
                           Type: Signature
                           Rule: "OR('OrdererMSP.member')"
+                - *Org1
         Application:
             <<: *ApplicationDefaults
             Organizations:
@@ -196,3 +201,4 @@ Profiles:
                       Admins:
                           Type: Signature
                           Rule: "OR('OrdererMSP.member')"
+                - *Org1

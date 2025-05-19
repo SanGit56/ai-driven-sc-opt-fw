@@ -78,14 +78,14 @@ peer:
         enabled: true
         clientAuthRequired: false
         cert:
-          file: ./network/organizations/peerOrganizations/org1.example.com/peers/$PEER_ID/tls/server.crt
+          file: ./network/organizations/peerOrganizations/org1.example.com/peers/peer2.org1.example.com/tls/server.crt
         key:
-          file: ./network/organizations/peerOrganizations/org1.example.com/peers/$PEER_ID/tls/server.key
+          file: ./network/organizations/peerOrganizations/org1.example.com/peers/peer2.org1.example.com/tls/server.key
         rootcert:
           file: ./network/organizations/peerOrganizations/org1.example.com/peers/peer2.org1.example.com/tls/ca.crt
         clientRootCAs:
           files:
-            - ./network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/tls/ca.crt
+            - ./network/organizations/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem
         clientKey:
           file: ./network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/tls/client.key
         clientCert:
