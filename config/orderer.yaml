@@ -8,7 +8,7 @@ General:
         RootCAs:
           - ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt
         ClientAuthRequired: false
-        ClientRootCAs: ../network/organizations/ordererOrganizations/example.com/tlsca/tlsca.example.com-cert.pem
+        ClientRootCAs: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt
     Keepalive:
         ServerMinInterval: 60s
         ServerInterval: 7200s
@@ -17,8 +17,8 @@ General:
     MaxSendMsgSize: 104857600
     Cluster:
         SendBufferSize: 100
-        ClientCertificate: ../network/organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/client.crt
-        ClientPrivateKey: ../network/organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/client.key
+        ClientCertificate: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
+        ClientPrivateKey: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.key
         ListenPort: 7051
         ListenAddress: 0.0.0.0
         ServerCertificate: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
@@ -77,7 +77,7 @@ Admin:
         PrivateKey: ../network/organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/client.key
         ClientAuthRequired: true
         ClientRootCAs:
-            - ../network/organizations/ordererOrganizations/example.com/ca/ca.example.com-cert.pem
+            - ../network/organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/ca.crt
 Consensus:
     WALDir: ./production/orderer/etcdraft/wal
     SnapDir: ./production/orderer/etcdraft/snapshot

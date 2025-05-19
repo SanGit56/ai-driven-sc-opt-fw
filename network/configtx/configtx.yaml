@@ -14,7 +14,7 @@ Organizations:
         Type: Signature
         Rule: "OR('OrdererMSP.admin')"
     OrdererEndpoints:
-      - 10.125.169.102:7050
+      - orderer.example.com:7050
   - &Org1
     Name: Org1
     ID: Org1MSP
@@ -64,7 +64,7 @@ Application: &ApplicationDefaults
     <<: *ApplicationCapabilities
 Orderer: &OrdererDefaults
   Addresses:
-    - 10.125.169.102:7050
+    - orderer.example.com:7050
   BatchTimeout: 2s
   BatchSize:
     MaxMessageCount: 10
@@ -106,7 +106,7 @@ Profiles:
       OrdererType: etcdraft
       EtcdRaft:
         Consenters:
-          - Host: 10.125.169.102
+          - Host: orderer.example.com
             Port: 7050
             ClientTLSCert: ../organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
             ServerTLSCert: ../organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt

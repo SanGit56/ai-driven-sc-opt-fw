@@ -85,11 +85,11 @@ peer:
           file: ./network/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
         clientRootCAs:
           files:
-            - ./network/organizations/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem
+            - ./network/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
         clientKey:
-          file: ./network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/tls/client.key
+          file: ./network/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/server.key
         clientCert:
-          file: ./network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/tls/client.crt
+          file: ./network/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/server.crt
     authentication:
         timewindow: 15m
     fileSystemPath: ./config/production
@@ -110,7 +110,7 @@ peer:
             Immutable:
             AltID:
             KeyIds:
-    mspConfigPath: ./network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+    mspConfigPath: ./network/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp
     localMspId: Org1MSP
     client:
         connTimeout: 3s

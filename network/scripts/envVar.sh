@@ -4,11 +4,8 @@ NETWORK_DIR=${NETWORK_DIR:-${PWD}}
 . ${NETWORK_DIR}/scripts/utils.sh
 
 export CORE_PEER_TLS_ENABLED=true
-export ORDERER_CA=${NETWORK_DIR}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt
-
-export PEER_ORG1_CA=${NETWORK_DIR}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
-export PEER1_ORG1_CA=${NETWORK_DIR}/organizations/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/ca.crt
-export PEER2_ORG1_CA=${NETWORK_DIR}/organizations/peerOrganizations/org1.example.com/peers/peer2.org1.example.com/tls/ca.crt
+export ORDERER_CA=${NETWORK_DIR}/organizations/ordererOrganizations/example.com/tlsca/tlsca.example.com-cert.pem
+export PEER_ORG1_CA=${NETWORK_DIR}/organizations/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
 
 setGlobals() {
   local PEER=$1
@@ -22,17 +19,15 @@ setGlobals() {
 
   if [ "$ORG" -eq 1 ]; then
     export CORE_PEER_LOCALMSPID="Org1MSP"
+    export CORE_PEER_TLS_ROOTCERT_FILE=$PEER_ORG1_CA
     export CORE_PEER_MSPCONFIGPATH=${NETWORK_DIR}/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
 
     if [ "$PEER" -eq 0 ]; then
       export CORE_PEER_ADDRESS=10.125.169.93:7051
-      export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_ORG1_CA
     elif [ "$PEER" -eq 1 ]; then
       export CORE_PEER_ADDRESS=10.125.169.12:8051
-      export CORE_PEER_TLS_ROOTCERT_FILE=$PEER1_ORG1_CA
     elif [ "$PEER" -eq 2 ]; then
       export CORE_PEER_ADDRESS=10.125.169.6:9051
-      export CORE_PEER_TLS_ROOTCERT_FILE=$PEER2_ORG1_CA
     else
       errorln "Peer${PEER} in Org1 not recognized"
     fi

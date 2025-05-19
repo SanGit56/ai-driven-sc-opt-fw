@@ -10,8 +10,6 @@ CC_SEQUENCE=$5
 INIT_REQUIRED="--init-required"
 CHANNEL_NAME=kanal-fabric
 
-ORDERER_CA=$PWD/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt
-
 installChaincode() {
   for PEER in 0 1 2; do
     setGlobals $PEER
