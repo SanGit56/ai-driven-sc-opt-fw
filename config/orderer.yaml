@@ -24,7 +24,7 @@ General:
         ServerCertificate:
         ServerPrivateKey:
     BootstrapMethod: file
-    BootstrapFile: ./config/system-genesis-block/genesis.block
+    BootstrapFile: ./system-genesis-block/genesis.block
     LocalMSPDir: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp
     LocalMSPID: OrdererMSP
     Profile:
@@ -50,7 +50,7 @@ General:
 ChannelParticipation:
   Enabled: true
 FileLedger:
-    Location: ./config/production/orderer
+    Location: ./production/orderer
 Debug:
     BroadcastTraceDir:
     DeliverTraceDir:
