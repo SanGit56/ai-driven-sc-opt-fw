@@ -23,8 +23,7 @@ General:
         ListenAddress: 0.0.0.0
         ServerCertificate: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
         ServerPrivateKey: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.key
-    BootstrapMethod: file
-    BootstrapFile: ./system-genesis-block/genesis.block
+    BootstrapMethod: none
     LocalMSPDir: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp
     LocalMSPID: OrdererMSP
     Profile:
@@ -49,6 +48,7 @@ General:
         TimeWindow: 15m
 ChannelParticipation:
   Enabled: true
+  MaxRequestBodySize: 1 MB
 FileLedger:
     Location: ./production/orderer
 Debug:
@@ -73,11 +73,11 @@ Admin:
     ListenAddress: 0.0.0.0:7053
     TLS:
         Enabled: true
-        Certificate: ../network/organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/client.crt
-        PrivateKey: ../network/organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/client.key
+        Certificate: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
+        PrivateKey: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.key
         ClientAuthRequired: true
         ClientRootCAs:
-            - ../network/organizations/ordererOrganizations/example.com/users/Admin@example.com/tls/ca.crt
+            - ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt
 Consensus:
     WALDir: ./production/orderer/etcdraft/wal
     SnapDir: ./production/orderer/etcdraft/snapshot

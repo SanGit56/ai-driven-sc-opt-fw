@@ -3,7 +3,7 @@ Organizations:
     Name: OrdererOrg
     ID: OrdererMSP
     MSPDir: ../organizations/ordererOrganizations/example.com/msp
-    Policies:
+    Policies: &OrdererPolicies
       Readers:
         Type: Signature
         Rule: "OR('OrdererMSP.member')"
@@ -13,8 +13,11 @@ Organizations:
       Admins:
         Type: Signature
         Rule: "OR('OrdererMSP.admin')"
+      Endorsement:
+          Type: Signature
+          Rule: "OR('OrdererMSP.member')"
     OrdererEndpoints:
-      - orderer.example.com:7050
+      - 10.125.169.102:7050
   - &Org1
     Name: Org1
     ID: Org1MSP
@@ -100,7 +103,6 @@ Channel: &ChannelDefaults
 Profiles:
   ChannelUsingRaft:
     <<: *ChannelDefaults
-    Consortium: SampleConsortium
     Orderer:
       <<: *OrdererDefaults
       OrdererType: etcdraft
