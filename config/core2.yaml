@@ -1,7 +1,7 @@
 peer:
     id: peer2.org1.example.com
     networkId: dev
-    listenAddress: 0.0.0.0:7051
+    listenAddress: 0.0.0.0:9051
     address: 10.125.169.6:9051
     addressAutoDetect: false
     gateway:
