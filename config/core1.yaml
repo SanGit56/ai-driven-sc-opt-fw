@@ -78,21 +78,21 @@ peer:
         enabled: true
         clientAuthRequired: false
         cert:
-          file: ./network/organizations/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/server.crt
+          file: ../network/organizations/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/server.crt
         key:
-          file: ./network/organizations/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/server.key
+          file: ../network/organizations/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/server.key
         rootcert:
-          file: ./network/organizations/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/ca.crt
+          file: ../network/organizations/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/ca.crt
         clientRootCAs:
           files:
-            - ./network/organizations/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/ca.crt
+            - ../network/organizations/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/ca.crt
         clientKey:
-          file: ./network/organizations/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/server.key
+          file: ../network/organizations/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/server.key
         clientCert:
-          file: ./network/organizations/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/server.crt
+          file: ../network/organizations/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/server.crt
     authentication:
         timewindow: 15m
-    fileSystemPath: ./config/production
+    fileSystemPath: ./production
     BCCSP:
         Default: SW
         SW:
@@ -110,7 +110,7 @@ peer:
             Immutable:
             AltID:
             KeyIds:
-    mspConfigPath: ./network/organizations/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/msp
+    mspConfigPath: ../network/organizations/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/msp
     localMspId: Org1MSP
     client:
         connTimeout: 3s
@@ -155,6 +155,11 @@ peer:
             gatewayService: 500
     maxRecvMsgSize: 104857600
     maxSendMsgSize: 104857600
+vm:
+  endpoint: unix:///host/var/run/docker.sock
+  docker:
+    hostConfig:
+      NetworkMode: host
 chaincode:
     pull: false
     installTimeout: 300s
@@ -185,7 +190,7 @@ ledger:
     purgeInterval: 100
     purgedKeyAuditLogging: true
   snapshots:
-    rootDir: ./config/production/snapshots
+    rootDir: /home/worker2/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/config/production/snapshots
 operations:
     listenAddress: 127.0.0.1:9443
     tls:
