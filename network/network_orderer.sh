@@ -16,6 +16,8 @@ orderer
 # orderer script (setelah create config block)
 scripts/orderer.sh
 
+scripts/deployCC.sh kanal-fabric basic ../asset-transfer-basic/chaincode-go go
+
 
 # update anchor peer transaction
 configtxgen -profile ChannelUsingRaft -outputAnchorPeersUpdate /configtx/channel-artifacts/Org1MSPanchors.tx -channelID kanal-fabric -asOrg Org1

@@ -50,7 +50,7 @@ fi
 FABRIC_CFG_PATH=$PWD/../config/
 
 . scripts/envVar.sh
-. scripts/ccutils.sh
+. scripts/ccutils.sh    # variabel bermasalah setelah ini
 
 function checkPrereqs() {
   jq --version > /dev/null 2>&1
