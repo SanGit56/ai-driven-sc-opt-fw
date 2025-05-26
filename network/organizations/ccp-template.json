@@ -23,7 +23,7 @@
     },
     "peers": {
         "peer0.org1.example.com": {
-            "url": "grpcs://10.125.169.93:${P0PORT}",
+            "url": "grpcs://10.125.170.186:${P0PORT}",
             "tlsCACerts": {
                 "pem": "${PEERPEM}"
             },
@@ -33,7 +33,7 @@
             }
         },
         "peer1.org1.example.com": {
-            "url": "grpcs://10.125.169.12:${P1PORT}",
+            "url": "grpcs://10.125.170.230:${P1PORT}",
             "tlsCACerts": {
                 "pem": "${PEERPEM}"
             },
@@ -43,7 +43,7 @@
             }
         },
         "peer2.org1.example.com": {
-            "url": "grpcs://10.125.169.6:${P2PORT}",
+            "url": "grpcs://10.125.170.250:${P2PORT}",
             "tlsCACerts": {
                 "pem": "${PEERPEM}"
             },

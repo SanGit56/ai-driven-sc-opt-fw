@@ -23,11 +23,11 @@ setGlobals() {
     export CORE_PEER_MSPCONFIGPATH=${NETWORK_DIR}/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
 
     if [ "$PEER" -eq 0 ]; then
-      export CORE_PEER_ADDRESS=10.125.169.93:7051
+      export CORE_PEER_ADDRESS=10.125.170.186:7051
     elif [ "$PEER" -eq 1 ]; then
-      export CORE_PEER_ADDRESS=10.125.169.12:8051
+      export CORE_PEER_ADDRESS=10.125.170.230:8051
     elif [ "$PEER" -eq 2 ]; then
-      export CORE_PEER_ADDRESS=10.125.169.6:9051
+      export CORE_PEER_ADDRESS=10.125.170.250:9051
     else
       errorln "Peer${PEER} in Org1 not recognized"
     fi

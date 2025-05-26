@@ -20,7 +20,7 @@ Organizations:
         OrdererEndpoints:
             - 10.125.169.226:7050
         AnchorPeers:
-            - Host: 10.125.169.6
+            - Host: 10.125.170.250
               Port: 9051
     - &Org1
         Name: Org1
