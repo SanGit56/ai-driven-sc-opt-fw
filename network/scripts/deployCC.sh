@@ -47,10 +47,10 @@ else
   CC_COLL_CONFIG="--collections-config $CC_COLL_CONFIG"
 fi
 
-FABRIC_CFG_PATH=$PWD/../config/
+export FABRIC_CFG_PATH=$PWD/../config/
 
 . scripts/envVar.sh
-. scripts/ccutils.sh    # variabel bermasalah setelah ini
+. scripts/ccutils.sh
 
 function checkPrereqs() {
   jq --version > /dev/null 2>&1
@@ -66,7 +66,7 @@ function checkPrereqs() {
 
 checkPrereqs
 
-./scripts/packageCC.sh $CC_NAME $CC_SRC_PATH $CC_SRC_LANGUAGE $CC_VERSION 
+./scripts/packageCC.sh $CC_NAME $CC_SRC_PATH $CC_SRC_LANGUAGE $CC_VERSION
 
 PACKAGE_ID=$(peer lifecycle chaincode calculatepackageid ${CC_NAME}.tar.gz)
 

@@ -17,7 +17,7 @@ Organizations:
           Type: Signature
           Rule: "OR('OrdererMSP.member')"
     OrdererEndpoints:
-      - 10.125.169.102:7050
+      - 10.125.169.226:7050
   - &Org1
     Name: Org1
     ID: Org1MSP
