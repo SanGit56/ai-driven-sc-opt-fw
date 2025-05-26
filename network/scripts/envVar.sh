@@ -8,8 +8,8 @@ export ORDERER_CA=${NETWORK_DIR}/organizations/ordererOrganizations/example.com/
 export PEER_ORG1_CA=${NETWORK_DIR}/organizations/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
 
 setGlobals() {
-  local PEER=$1
-  local ORG=$2
+  local ORG=$1
+  local PEER=$2
 
   if [ -z "$ORG" ]; then
     ORG=1
@@ -22,12 +22,19 @@ setGlobals() {
     export CORE_PEER_TLS_ROOTCERT_FILE=$PEER_ORG1_CA
     export CORE_PEER_MSPCONFIGPATH=${NETWORK_DIR}/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
 
+    echo $CORE_PEER_LOCALMSPID
+    echo $CORE_PEER_TLS_ROOTCERT_FILE
+    echo $CORE_PEER_MSPCONFIGPATH
+
     if [ "$PEER" -eq 0 ]; then
       export CORE_PEER_ADDRESS=10.125.170.186:7051
+      echo $CORE_PEER_ADDRESS
     elif [ "$PEER" -eq 1 ]; then
       export CORE_PEER_ADDRESS=10.125.170.230:8051
+      echo $CORE_PEER_ADDRESS
     elif [ "$PEER" -eq 2 ]; then
       export CORE_PEER_ADDRESS=10.125.170.250:9051
+      echo $CORE_PEER_ADDRESS
     else
       errorln "Peer${PEER} in Org1 not recognized"
     fi

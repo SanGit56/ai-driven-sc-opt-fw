@@ -47,7 +47,7 @@ else
   CC_COLL_CONFIG="--collections-config $CC_COLL_CONFIG"
 fi
 
-export FABRIC_CFG_PATH=$PWD/../config/
+export FABRIC_CFG_PATH=$PWD/../config/peer0/
 
 . scripts/envVar.sh
 . scripts/ccutils.sh
@@ -73,22 +73,22 @@ PACKAGE_ID=$(peer lifecycle chaincode calculatepackageid ${CC_NAME}.tar.gz)
 infoln "Installing chaincode on peer0.org1..."
 installChaincode 1
 
-resolveSequence
+# resolveSequence
 
-queryInstalled 1
+# queryInstalled 1
 
-approveForMyOrg 1
+# approveForMyOrg 1
 
-checkCommitReadiness 1 "\"Org1MSP\": true"
+# checkCommitReadiness 1 "\"Org1MSP\": true"
 
-commitChaincodeDefinition 1
+# commitChaincodeDefinition 1
 
-queryCommitted 1
+# queryCommitted 1
 
-if [ "$CC_INIT_FCN" = "NA" ]; then
-  infoln "Chaincode initialization is not required"
-else
-  chaincodeInvokeInit 1
-fi
+# if [ "$CC_INIT_FCN" = "NA" ]; then
+#   infoln "Chaincode initialization is not required"
+# else
+#   chaincodeInvokeInit 1
+# fi
 
 exit 0

@@ -14,7 +14,7 @@ println "- CC_SRC_PATH: ${C_GREEN}${CC_SRC_PATH}${C_RESET}"
 println "- CC_SRC_LANGUAGE: ${C_GREEN}${CC_SRC_LANGUAGE}${C_RESET}"
 println "- CC_VERSION: ${C_GREEN}${CC_VERSION}${C_RESET}"
 
-export FABRIC_CFG_PATH=$PWD/../config/
+export FABRIC_CFG_PATH=$PWD/../config/peer0/
 
 if [ -z "$CC_NAME" ] || [ "$CC_NAME" = "NA" ]; then
   fatalln "No chaincode name was provided. Valid call example: ./network.sh packageCC -ccn basic -ccp chaincode/asset-transfer-basic/chaincode-go -ccv 1.0 -ccl go"
