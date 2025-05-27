@@ -1,0 +1,100 @@
+### 📥 Step 2: **Install on Peer**
+
+```bash
+peer lifecycle chaincode install mycc.tar.gz
+```
+
+Run this on **each peer** that will endorse the chaincode.
+
+---
+
+### 🔍 Step 3: **Query Installed Chaincode**
+
+```bash
+peer lifecycle chaincode queryinstalled
+```
+
+You'll get a `package ID` like:
+
+```
+Package ID: mycc_1:abc123456789... Label: mycc_1
+```
+
+You'll need the `Package ID` in the next step.
+
+---
+
+### ✅ Step 4: **Approve for My Org**
+
+```bash
+peer lifecycle chaincode approveformyorg \
+  --channelID mychannel \
+  --name mycc \
+  --version 1.0 \
+  --package-id mycc_1:abc123456789... \
+  --sequence 1 \
+  --init-required \
+  --orderer <orderer-address> \
+  --tls --cafile <orderer-ca>
+```
+
+---
+
+### ✅ Step 5: **Check Commit Readiness**
+
+```bash
+peer lifecycle chaincode checkcommitreadiness \
+  --channelID mychannel \
+  --name mycc \
+  --version 1.0 \
+  --sequence 1 \
+  --init-required \
+  --output json
+```
+
+---
+
+### 🚀 Step 6: **Commit the Chaincode**
+
+After all orgs approve:
+
+```bash
+peer lifecycle chaincode commit \
+  --channelID mychannel \
+  --name mycc \
+  --version 1.0 \
+  --sequence 1 \
+  --init-required \
+  --peerAddresses <peer1:port> --tlsRootCertFiles <peer1-ca> \
+  --orderer <orderer-address> --tls --cafile <orderer-ca>
+```
+
+---
+
+### 🧪 Step 7: **Initialize the Chaincode (if required)**
+
+```bash
+peer chaincode invoke \
+  -o <orderer-address> --tls --cafile <orderer-ca> \
+  -C mychannel -n mycc \
+  --isInit \
+  -c '{"Args":["Init"]}'
+```
+
+---
+
+### 🔍 Done
+
+At this point, Fabric will have started a **Docker container** on the peer(s) to host and run the chaincode.
+
+To check the container:
+
+```bash
+docker ps
+```
+
+You’ll see something like:
+
+```
+dev-peer0-org1-mycc_1-<hash>
+```

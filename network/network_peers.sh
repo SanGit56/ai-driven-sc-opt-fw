@@ -5,6 +5,9 @@ export CORE_PEER_MSPCONFIGPATH=../network/organizations/peerOrganizations/org1.e
 # join channel
 peer channel join -b ../network/configtx/channel-artifacts/kanal-fabric.block
 
+# install chaincode on peer
+. ccutils.sh && installChaincode 1 "basic"
+
 
 # update peers
 peer channel update -o 10.125.169.226:7050 --ordererTLSHostnameOverride orderer.example.com -c kanal-fabric -f ../network/configtx/channel-artifacts/Org1MSPanchors.tx --tls --cafile ../network/organizations/ordererOrganizations/example.com/tlsca/tlsca.example.com-cert.pem

@@ -13,9 +13,10 @@ configtxgen -profile ChannelUsingRaft -outputBlock ./configtx/channel-artifacts/
 
 orderer
 
-# orderer script (setelah create config block)
+# join orderer to channel
 scripts/orderer.sh
 
+# deploy chaincode (currently only packaging)
 scripts/deployCC.sh kanal-fabric basic ../asset-transfer-basic/chaincode-go go
 
 

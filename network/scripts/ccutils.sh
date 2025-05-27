@@ -3,6 +3,7 @@
 # installChaincode PEER ORG
 function installChaincode() {
   ORG=$1
+  CC_NAME=$2
   setGlobals $ORG 0
   set -x
   peer lifecycle chaincode queryinstalled --output json | jq -r 'try (.installed_chaincodes[].package_id)' | grep ^${PACKAGE_ID}$ >&log.txt

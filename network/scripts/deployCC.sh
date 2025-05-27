@@ -70,8 +70,8 @@ checkPrereqs
 
 PACKAGE_ID=$(peer lifecycle chaincode calculatepackageid ${CC_NAME}.tar.gz)
 
-infoln "Installing chaincode on peer0.org1..."
-installChaincode 1
+# infoln "Installing chaincode on peer0.org1..."
+# installChaincode 1
 
 # resolveSequence
 
