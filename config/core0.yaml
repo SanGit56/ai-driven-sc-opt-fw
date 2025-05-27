@@ -161,7 +161,6 @@ vm:
     hostConfig:
       NetworkMode: host
 chaincode:
-    builder: hyperledger/fabric-ccenv:2.5
     pull: false
     installTimeout: 300s
     startuptimeout: 300s
