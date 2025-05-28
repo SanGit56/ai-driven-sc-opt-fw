@@ -27,7 +27,7 @@ setGlobals() {
     echo $CORE_PEER_MSPCONFIGPATH
 
     if [ "$PEER" -eq 0 ]; then
-      export CORE_PEER_ADDRESS=10.125.170.186:7051
+      export CORE_PEER_ADDRESS=10.125.170.198:7051
       echo $CORE_PEER_ADDRESS
     elif [ "$PEER" -eq 1 ]; then
       export CORE_PEER_ADDRESS=10.125.170.230:8051
