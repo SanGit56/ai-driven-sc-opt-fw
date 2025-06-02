@@ -6,7 +6,7 @@ export CORE_PEER_MSPCONFIGPATH=../network/organizations/peerOrganizations/org1.e
 peer channel join -b ../network/configtx/channel-artifacts/kanal-fabric.block
 
 # install chaincode on peer
-scripts/deployCC_peers.sh kanal-fabric basic
+scripts/deployCC.sh kanal-fabric basic
 
 
 # update peers

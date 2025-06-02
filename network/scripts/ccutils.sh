@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-# installChaincode PEER ORG
+# installChaincode ORG PEER
 function installChaincode() {
-  ORG=$1
-  setGlobals $ORG 0
+  PEER=$1
+  setGlobals 1 $PEER
   set -x
   peer lifecycle chaincode queryinstalled --output json | jq -r 'try (.installed_chaincodes[].package_id)' | grep ^${PACKAGE_ID}$ >&log.txt
   if test $? -ne 0; then
@@ -15,23 +15,10 @@ function installChaincode() {
   successln "Chaincode is installed on peer.org1"
 }
 
-# queryInstalled PEER ORG
-function queryInstalled() {
-  ORG=$1
-  setGlobals $ORG
-  set -x
-  peer lifecycle chaincode queryinstalled --output json | jq -r 'try (.installed_chaincodes[].package_id)' | grep ^${PACKAGE_ID}$ >&log.txt
-  res=$?
-  { set +x; } 2>/dev/null
-  cat log.txt
-  verifyResult $res "Query installed on peer.org1 has failed"
-  successln "Query installed successful on peer.org1 on channel"
-}
-
-# approveForMyOrg VERSION PEER ORG
+# approveForMyOrg VERSION ORG PEER
 function approveForMyOrg() {
-  ORG=$1
-  setGlobals $ORG
+  PEER=$1
+  setGlobals 1 $PEER
   set -x
   peer lifecycle chaincode approveformyorg -o 10.125.170.209:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile "$ORDERER_CA" --channelID $CHANNEL_NAME --name ${CC_NAME} --version ${CC_VERSION} --package-id ${PACKAGE_ID} --sequence ${CC_SEQUENCE} ${INIT_REQUIRED} ${CC_END_POLICY} ${CC_COLL_CONFIG} >&log.txt
   res=$?
@@ -41,7 +28,7 @@ function approveForMyOrg() {
   successln "Chaincode definition approved on peer.org1 on channel '$CHANNEL_NAME'"
 }
 
-# checkCommitReadiness VERSION PEER ORG
+# checkCommitReadiness VERSION ORG PEER
 function checkCommitReadiness() {
   ORG=$1
   shift 1
@@ -72,7 +59,7 @@ function checkCommitReadiness() {
   fi
 }
 
-# commitChaincodeDefinition VERSION PEER ORG (PEER ORG)...
+# commitChaincodeDefinition VERSION ORG PEER (ORG PEER)...
 function commitChaincodeDefinition() {
   parsePeerConnectionParameters $@
   res=$?
@@ -88,6 +75,47 @@ function commitChaincodeDefinition() {
   cat log.txt
   verifyResult $res "Chaincode definition commit failed on peer.org1 on channel '$CHANNEL_NAME' failed"
   successln "Chaincode definition committed on channel '$CHANNEL_NAME'"
+}
+
+function chaincodeInvokeInit() {
+  parsePeerConnectionParameters $@
+  res=$?
+  verifyResult $res "Invoke transaction failed on channel '$CHANNEL_NAME' due to uneven number of peer and org parameters "
+
+  local rc=1
+  local COUNTER=1
+  local fcn_call='{"function":"'${CC_INIT_FCN}'","Args":[]}'
+  # continue to poll
+  # we either get a successful response, or reach MAX RETRY
+  while [ $rc -ne 0 -a $COUNTER -lt $MAX_RETRY ]; do
+    sleep $DELAY
+    # while 'peer chaincode' command can get the orderer endpoint from the
+    # peer (if join was successful), let's supply it directly as we know
+    # it using the "-o" option
+    set -x
+    infoln "invoke fcn call:${fcn_call}"
+    peer chaincode invoke -o 10.125.170.209:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile "$ORDERER_CA" -C $CHANNEL_NAME -n ${CC_NAME} "${PEER_CONN_PARMS[@]}" --isInit -c ${fcn_call} >&log.txt
+    res=$?
+    { set +x; } 2>/dev/null
+    let rc=$res
+    COUNTER=$(expr $COUNTER + 1)
+  done
+  cat log.txt
+  verifyResult $res "Invoke execution on $PEERS failed "
+  successln "Invoke transaction successful on $PEERS on channel '$CHANNEL_NAME'"
+}
+
+# queryInstalled ORG PEER
+function queryInstalled() {
+  ORG=$1
+  setGlobals $ORG
+  set -x
+  peer lifecycle chaincode queryinstalled --output json | jq -r 'try (.installed_chaincodes[].package_id)' | grep ^${PACKAGE_ID}$ >&log.txt
+  res=$?
+  { set +x; } 2>/dev/null
+  cat log.txt
+  verifyResult $res "Query installed on peer.org1 has failed"
+  successln "Query installed successful on peer.org1 on channel"
 }
 
 # queryCommitted ORG
@@ -117,34 +145,6 @@ function queryCommitted() {
   else
     fatalln "After $MAX_RETRY attempts, Query chaincode definition result on peer.org1 is INVALID!"
   fi
-}
-
-function chaincodeInvokeInit() {
-  parsePeerConnectionParameters $@
-  res=$?
-  verifyResult $res "Invoke transaction failed on channel '$CHANNEL_NAME' due to uneven number of peer and org parameters "
-
-  local rc=1
-  local COUNTER=1
-  local fcn_call='{"function":"'${CC_INIT_FCN}'","Args":[]}'
-  # continue to poll
-  # we either get a successful response, or reach MAX RETRY
-  while [ $rc -ne 0 -a $COUNTER -lt $MAX_RETRY ]; do
-    sleep $DELAY
-    # while 'peer chaincode' command can get the orderer endpoint from the
-    # peer (if join was successful), let's supply it directly as we know
-    # it using the "-o" option
-    set -x
-    infoln "invoke fcn call:${fcn_call}"
-    peer chaincode invoke -o 10.125.170.209:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile "$ORDERER_CA" -C $CHANNEL_NAME -n ${CC_NAME} "${PEER_CONN_PARMS[@]}" --isInit -c ${fcn_call} >&log.txt
-    res=$?
-    { set +x; } 2>/dev/null
-    let rc=$res
-    COUNTER=$(expr $COUNTER + 1)
-  done
-  cat log.txt
-  verifyResult $res "Invoke execution on $PEERS failed "
-  successln "Invoke transaction successful on $PEERS on channel '$CHANNEL_NAME'"
 }
 
 function chaincodeQuery() {

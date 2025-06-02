@@ -16,8 +16,8 @@ orderer
 # join orderer to channel
 scripts/orderer.sh
 
-# deploy chaincode (currently only packaging)
-scripts/deployCC_orderer.sh kanal-fabric basic ../asset-transfer-basic/chaincode-go/ go
+# package chaincode
+scripts/packageCC.sh
 
 
 # update anchor peer transaction
