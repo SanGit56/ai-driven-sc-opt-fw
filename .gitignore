@@ -26,3 +26,5 @@ go.work.sum
 
 bin/
 config/core.yaml
+config/production/
+network/configtx/channel-artifacts/

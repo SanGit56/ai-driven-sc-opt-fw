@@ -1,0 +1,68 @@
+peer:
+  id: orderer.example.com
+  networkId: dev
+  addressAutoDetect: false
+  address: 10.125.170.118:7050
+  tls:
+    enabled: true
+    clientAuthRequired: false
+    cert:
+      file: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
+    key:
+      file: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.key
+    rootcert:
+      file: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt
+    clientRootCAs:
+      files:
+        - ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt
+    clientKey:
+      file: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.key
+    clientCert:
+      file: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
+  mspConfigPath: ../network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+  localMspId: OrdererMSP
+  localMspType: bccsp
+  fileSystemPath: ./production
+  BCCSP:
+    Default: SW
+    SW:
+      Hash: SHA2
+      Security: 256
+      FileKeyStore:
+        KeyStore:
+
+chaincode:
+  externalBuilders:
+    - name: golang
+      path: /opt/hyperledger/externalbuilders/golang
+      propagateEnvironment:
+        - GOPROXY
+        - GONOPROXY
+        - GOSUMDB
+        - GONOSUMDB
+        - GOPRIVATE
+  pull: false
+  system:
+    _lifecycle: enable
+    cscc: enable
+    lscc: enable
+    qscc: enable
+  logging:
+    level: info
+    shim: warning
+    format: '%{color}%{time:2006-01-02 15:04:05.000 MST} [%{module}] %{shortfunc} -> %{level:.4s} %{id:03x}%{color:reset} %{message}'
+
+ledger:
+  blockchain:
+  state:
+    stateDatabase: goleveldb
+  history:
+    enableHistoryDatabase: false
+
+operations:
+  listenAddress: 127.0.0.1:9443
+  tls:
+    enabled: false
+
+metrics:
+  provider: disabled

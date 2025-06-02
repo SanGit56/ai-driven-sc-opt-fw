@@ -155,27 +155,26 @@ peer:
             gatewayService: 500
     maxRecvMsgSize: 104857600
     maxSendMsgSize: 104857600
-vm:
-  endpoint: unix:///var/run/docker.sock
-  docker:
-    hostConfig:
-      NetworkMode: host
 chaincode:
-    pull: false
-    installTimeout: 300s
-    startuptimeout: 300s
-    executetimeout: 30s
-    mode: net
-    keepalive: 0
-    system:
-        _lifecycle: enable
-        cscc: enable
-        lscc: enable
-        qscc: enable
-    logging:
-      level:  info
-      shim:   warning
-      format: '%{color}%{time:2006-01-02 15:04:05.000 MST} [%{module}] %{shortfunc} -> %{level:.4s} %{id:03x}%{color:reset} %{message}'
+  externalBuilders:
+    - name: golang
+      path: /opt/hyperledger/externalbuilders/golang
+      propagateEnvironment:
+        - GOPROXY
+        - GONOPROXY
+        - GOSUMDB
+        - GONOSUMDB
+        - GOPRIVATE
+  pull: false
+  system:
+    _lifecycle: enable
+    cscc: enable
+    lscc: enable
+    qscc: enable
+  logging:
+    level:  info
+    shim:   warning
+    format: '%{color}%{time:2006-01-02 15:04:05.000 MST} [%{module}] %{shortfunc} -> %{level:.4s} %{id:03x}%{color:reset} %{message}'
 ledger:
   blockchain:
   state:
