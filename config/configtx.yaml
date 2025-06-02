@@ -18,9 +18,9 @@ Organizations:
                 Type: Signature
                 Rule: "OR('OrdererMSP.member')"
         OrdererEndpoints:
-            - 10.125.170.118:7050
+            - 10.125.170.209:7050
         AnchorPeers:
-            - Host: 10.125.170.250
+            - Host: 10.125.171.70
               Port: 9051
     - &Org1
         Name: Org1
@@ -104,7 +104,7 @@ Orderer: &OrdererDefaults
             - kafka2:9092
     EtcdRaft:
         Consenters:
-            - Host: 10.125.170.118
+            - Host: 10.125.170.209
               Port: 7050
               ClientTLSCert: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
               ServerTLSCert: ../network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
