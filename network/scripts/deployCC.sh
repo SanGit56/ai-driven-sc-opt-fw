@@ -31,15 +31,15 @@ checkPrereqs
 PACKAGE_ID=$(peer lifecycle chaincode calculatepackageid ${CC_NAME}.tar.gz)
 
 infoln "Installing chaincode on peer.org1..."
-installChaincode 0
+installChaincode 1
 
-approveForMyOrg 0
+approveForMyOrg 1
 
 checkCommitReadiness 1 "\"Org1MSP\": true"
 
-commitChaincodeDefinition 1
+commitChaincodeDefinition
 
-chaincodeInvokeInit 1
+chaincodeInvokeInit
 
 # resolveSequence
 
