@@ -18,15 +18,3 @@ scripts/orderer.sh
 
 # package chaincode
 scripts/packageCC.sh
-
-
-# update anchor peer transaction
-configtxgen -profile ChannelUsingRaft -outputAnchorPeersUpdate /configtx/channel-artifacts/Org1MSPanchors.tx -channelID kanal-fabric -asOrg Org1
-
-
-
-# generate genesis block
-# configtxgen -profile SampleDevModeEtcdRaft -outputBlock ./config/system-genesis-block/genesis.block -channelID system-channel
-
-# generate channel
-# configtxgen -profile ChannelUsingRaft -outputCreateChannelTx ./configtx/channel-artifacts/kanal-fabric.tx -channelID kanal-fabric

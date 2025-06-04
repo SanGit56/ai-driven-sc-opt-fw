@@ -221,7 +221,7 @@ ledger:
     purgeInterval: 100
     purgedKeyAuditLogging: true
   snapshots:
-    rootDir: /home/worker1/go/src/github.com/SanGit56/ai-driven-sc-opt-fw/config/production/snapshots
+    rootDir: /home/worker1/Documents/ai-driven-sc-opt-fw/config/production/snapshots
 operations:
   listenAddress: 127.0.0.1:9443
   tls:
