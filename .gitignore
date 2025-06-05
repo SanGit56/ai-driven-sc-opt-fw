@@ -25,6 +25,9 @@ go.work.sum
 .env
 
 bin/
+chaincodes/
 config/core.yaml
 config/production/
-network/configtx/channel-artifacts/
+config/asset-transfer-basic/
+packaged_cc/
+venv/
