@@ -12,12 +12,12 @@ def get_sumber_daya(peer):
   ssh.connect(
     hostname=peer["host"],
     username=peer["user"],
-    key_filename="/home/worker2/.ssh/id_rsa"
+    key_filename="/home/loadbalancer/.ssh/id_rsa"
   )
   
   perintah = {
-    "cpu": "lscpu | grep 'CPU(s)'",
-    "memory": "free -m",
+    "cpu": "lscpu | grep 'CPU(s)' | head -n 1",
+    "memory": "free -m | head -n 2",
     "disk": "df -h /"
   }
 
@@ -36,4 +36,4 @@ if __name__ == "__main__":
     print(f"Cek sumber daya {peer['name']}...")
     sumber_daya = get_sumber_daya(peer)
     for key, value in sumber_daya.items():
-      print(f"\n[{key.upper()}]\n{value}\n")
+      print(f"[{key}]\n{value}\n")
