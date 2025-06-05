@@ -1,0 +1,17 @@
+[
+  {
+    "name": "peer0",
+    "host": "10.125.174.252",
+    "user": "worker1"
+  },
+  {
+    "name": "peer1",
+    "host": "10.125.175.114",
+    "user": "worker2"
+  },
+  {
+    "name": "peer2",
+    "host": "10.125.171.70",
+    "user": "worker3"
+  }
+]
