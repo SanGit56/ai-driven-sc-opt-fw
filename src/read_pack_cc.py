@@ -2,7 +2,7 @@ import tarfile
 import os
 
 def kemas_chaincode(alamat_cc, nama_keluaran):
-  nama_keluaran += '.tar.gz'
+  nama_keluaran += ".tar.gz"
 
   dir_saat_ini = os.path.dirname(os.path.abspath(__file__))
   dir_parent = os.path.dirname(dir_saat_ini)
