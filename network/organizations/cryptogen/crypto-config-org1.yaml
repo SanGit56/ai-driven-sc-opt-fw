@@ -6,9 +6,9 @@ PeerOrgs:
       Count: 3
       Start: 0
       SANS:
-        - 10.125.174.252
+        - 10.125.175.72
         - 10.125.175.114
-        - 10.125.171.70
+        - 10.125.175.105
         - peer0.org1.example.com
         - peer1.org1.example.com
         - peer2.org1.example.com
