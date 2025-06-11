@@ -1,19 +1,24 @@
 import tarfile
 import os
+import subprocess
 
 def kemas_chaincode(alamat_cc, nama_keluaran):
-  nama_keluaran += ".tar.gz"
+  nama_tar = nama_keluaran + ".tar.gz"
+  nama_label = nama_keluaran + "_1.0"
 
   dir_saat_ini = os.path.dirname(os.path.abspath(__file__))
   dir_parent = os.path.dirname(dir_saat_ini)
   dir_keluaran = os.path.join(dir_parent, 'packaged_cc')
 
   os.makedirs(dir_keluaran, exist_ok=True)
+  alamat_keluaran = os.path.join(dir_keluaran, nama_tar)
 
-  alamat_keluaran = os.path.join(dir_keluaran, nama_keluaran)
-
-  with tarfile.open(alamat_keluaran, "w:gz") as tar:
-    tar.add(alamat_cc, arcname=os.path.basename(alamat_cc))
+  subprocess.run([
+    "peer", "lifecycle", "chaincode", "package", alamat_keluaran,
+    "--path", alamat_cc,
+    "--lang", "golang",
+    "--label", nama_label
+  ], check=True)
 
   print(f"Chaincode '{alamat_cc}' dikemas menjadi '{alamat_keluaran}'")
 
