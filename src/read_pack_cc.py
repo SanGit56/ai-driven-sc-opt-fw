@@ -22,11 +22,6 @@ def kemas_chaincode(alamat_cc, nama_keluaran):
 
   print(f"Chaincode '{alamat_cc}' dikemas menjadi '{alamat_keluaran}'")
 
-def baca_konten_file(alamat_file):
-  with open(alamat_file, 'r') as f:
-    return f.read()
-
-
 def daftar_folder_chaincode(alamat_dir):
   folders = []
   for item in os.listdir(alamat_dir):

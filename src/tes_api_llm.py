@@ -2,13 +2,7 @@ from mistralai import Mistral
 import requests
 import json
 
-def baca_file_prompt():
-  with open("prompt.txt", "r") as f:
-    return f.read()
-
 def hubungi_deepseek():
-  file_prompt = baca_file_prompt()
-
   response = requests.post(
     url="https://openrouter.ai/api/v1/chat/completions",
     headers={
@@ -20,7 +14,7 @@ def hubungi_deepseek():
       "messages": [
         {
           "role": "user",
-          "content": file_prompt
+          "content": "create 1 sentence wholesome tale"
         }
       ],
     })
@@ -33,14 +27,13 @@ def hubungi_mistral():
   model = "mistral-large-latest"
 
   client = Mistral(api_key=api_key)
-  file_prompt = baca_file_prompt()
 
   chat_response = client.chat.complete(
     model= model,
     messages = [
       {
         "role": "user",
-        "content": file_prompt,
+        "content": "create 1 sentence wholesome tale",
       },
     ]
   )
