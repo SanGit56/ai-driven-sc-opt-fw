@@ -1,3 +1,5 @@
-dasar->10.125.175.72
-menengah->10.125.175.114
-kompleks->10.125.175.105
+taskmanager->peer0
+uwu->peer0
+chaincode-tes->peer0
+bookregistry->peer0
+chaincode-go->peer0

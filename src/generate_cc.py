@@ -44,7 +44,7 @@ def buat_file_dari_prompt(teks_mentah, dir_cc):
   print(f"Chaincode terbit di: {chaincode_dir}\n")
 
 def baca_file_prompt():
-  with open("prompt.txt", "r") as f:
+  with open("prompt_gen.txt", "r") as f:
     return f.read()
 
 def hubungi_deepseek():
