@@ -2,7 +2,7 @@ peer:
   id: orderer.example.com
   networkId: dev
   addressAutoDetect: false
-  address: 10.125.175.42:7050
+  address: 10.125.176.24:7050
   tls:
     enabled: true
     clientAuthRequired: false

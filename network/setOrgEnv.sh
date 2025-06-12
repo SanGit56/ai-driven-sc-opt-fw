@@ -18,10 +18,10 @@ if [[ "$ORG_LOWER" == "org1" || "$ORG_LOWER" == "digibank" ]]; then
 
   case "$PEER" in
     0)
-      export CORE_PEER_ADDRESS="10.125.175.72:7051"
+      export CORE_PEER_ADDRESS="10.125.176.28:7051"
       ;;
     1)
-      export CORE_PEER_ADDRESS="10.125.175.114:8051"
+      export CORE_PEER_ADDRESS="10.125.176.79:8051"
       ;;
     2)
       export CORE_PEER_ADDRESS="10.125.175.105:9051"

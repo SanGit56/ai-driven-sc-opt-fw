@@ -20,9 +20,9 @@ def kirim_cc_sesuai_rekom(file_rekom, ssh_kunci):
 
       for ip in ip_peer:
         try:
-          if ip == "10.125.175.72":
+          if ip == "10.125.176.28":
             ssh_pengguna = "worker1"
-          elif ip == "10.125.175.114":
+          elif ip == "10.125.176.79":
             ssh_pengguna = "worker2"
           elif ip == "10.125.175.105":
             ssh_pengguna = "worker3"
