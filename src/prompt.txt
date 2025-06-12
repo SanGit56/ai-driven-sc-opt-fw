@@ -40,3 +40,26 @@ with peers resources are defined. now lets define chaincode complexity:
 - medium = can be run in peer1 (if run in peer0 will max it out or almost)
 - high = can be run in peer2 (if run in peer1 will max it out or almost)
 
+these are the rules when generating chaincode:
+1. all these files are present: go.mod, main.go, and <chaincode_name>.go
+2. must not use conversation sentences, formatting, styling, code blocks, etc
+3. only return plain answer and formatting
+
+follow these pattern when generating chaincode:
+=== FILE: go.mod ===
+<go.mod content>
+
+=== FILE: main.go ===
+<main.go content>
+
+=== FILE: chaincode/<chaincode_name>.go ===
+<<chaincode_name>.go content>
+
+these are some notes for dependencies:
+1. go.mod use `go 1.22`
+2. go.mod use `require github.com/hyperledger/fabric-contract-api-go/v2 v2.2.0`
+3. main.go and <chaincode_name>.go use `github.com/hyperledger/fabric-contract-api-go/v2/contractapi`
+
+chaincode themes can be varied but not limited to: user profile, book registry, device monitor, student record, product catalog, car ownership, vote system, task manager, event logger, IoT status, shipment tracker, message board, appointment scheduler, coupon manager, bug tracker, etc
+
+with all that being said, make 1 full low complexity chaincode. dont name the module with "low complexity" or something like that

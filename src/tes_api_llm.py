@@ -1,14 +1,13 @@
-import os
 from mistralai import Mistral
 import requests
 import json
 
-def baca_file_res():
+def baca_file_prompt():
   with open("prompt.txt", "r") as f:
     return f.read()
 
 def hubungi_deepseek():
-  file_res = baca_file_res()
+  file_prompt = baca_file_prompt()
 
   response = requests.post(
     url="https://openrouter.ai/api/v1/chat/completions",
@@ -21,7 +20,7 @@ def hubungi_deepseek():
       "messages": [
         {
           "role": "user",
-          "content": file_res
+          "content": file_prompt
         }
       ],
     })
@@ -30,18 +29,18 @@ def hubungi_deepseek():
   return response.json()["choices"][0]["message"]["content"]
 
 def hubungi_mistral():
-  api_key = os.environ["MISTRAL_API_KEY"]
+  api_key = "btoHd0ZMZq3iOX8QPr80OPulAc20aRfq"
   model = "mistral-large-latest"
 
   client = Mistral(api_key=api_key)
-  file_res = baca_file_res()
+  file_prompt = baca_file_prompt()
 
   chat_response = client.chat.complete(
     model= model,
     messages = [
       {
         "role": "user",
-        "content": file_res,
+        "content": file_prompt,
       },
     ]
   )

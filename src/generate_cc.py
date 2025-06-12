@@ -1,121 +1,95 @@
-import os
+from mistralai import Mistral
+from pathlib import Path
 import subprocess
+import requests
+import time
+import json
+import re
 
-# === TEMPLATES ===
-GO_MOD_TEMPLATE = """module {module_name}
+def buat_file_dari_prompt(teks_mentah, dir_cc):
+  file_skrg = None
+  baris_konten = []
+  konten_smntr = {}
 
-go 1.22
+  for baris in teks_mentah.splitlines():
+    header_sesuai = re.match(r"^=== FILE: (.+) ===$", baris.strip())
+    if header_sesuai:
+      if file_skrg:
+        konten_smntr[file_skrg] = "\n".join(baris_konten).strip() + "\n"
+        baris_konten = []
+      file_skrg = header_sesuai.group(1)
+    elif file_skrg:
+      baris_konten.append(baris)
 
-require (
-  github.com/hyperledger/fabric-chaincode-go/v2 v2.0.0
-	github.com/hyperledger/fabric-contract-api-go/v2 v2.2.0
-)
-"""
+  if file_skrg and baris_konten:
+    konten_smntr[file_skrg] = "\n".join(baris_konten).strip() + "\n"
+  
+  konten_go_mod = konten_smntr.get("go.mod", "")
+  modul_sesuai = re.search(r"^module\s+(\S+)", konten_go_mod, re.MULTILINE)
+  if not modul_sesuai:
+    raise ValueError("Nama modul tidak ditemukan di go.mod")
 
-MAIN_GO_TEMPLATE = """package main
+  nama_modul = modul_sesuai.group(1).split("/")[-1]
+  chaincode_dir = Path(dir_cc) / nama_modul
 
-import (
-  "github.com/hyperledger/fabric-contract-api-go/v2/contractapi"
-  "{module_name}/{contract_file}"
-)
+  for nama_file, konten in konten_smntr.items():
+    alamat_file = chaincode_dir / nama_file
+    alamat_file.parent.mkdir(parents=True, exist_ok=True)
+    with open(alamat_file, "w") as f:
+      f.write(konten)
 
-func main() {{
-  chaincode, err := contractapi.NewChaincode(&{contract_type}.{contract_struct}SmartContract{{}})
-  if err != nil {{
-    panic("Error creating chaincode: " + err.Error())
-  }}
+  subprocess.run(["go", "mod", "tidy"], cwd=chaincode_dir, check=True)
+  subprocess.run(["go", "mod", "vendor"], cwd=chaincode_dir, check=True)
 
-  if err := chaincode.Start(); err != nil {{
-    panic("Error starting chaincode: " + err.Error())
-  }}
-}}
-"""
+  print(f"Chaincode terbit di: {chaincode_dir}\n")
 
-CONTRACT_GO_TEMPLATE = """package {contract_file}
+def baca_file_prompt():
+  with open("prompt.txt", "r") as f:
+    return f.read()
 
-import (
-  "encoding/json"
+def hubungi_deepseek():
+  file_prompt = baca_file_prompt()
 
-	"github.com/hyperledger/fabric-contract-api-go/v2/contractapi"
-)
+  response = requests.post(
+    url="https://openrouter.ai/api/v1/chat/completions",
+    headers={
+      "Authorization": "Bearer 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",
+      "Content-Type": "application/json",
+    },
+    data=json.dumps({
+      "model": "deepseek/deepseek-r1:free",
+      "messages": [
+        {
+          "role": "user",
+          "content": file_prompt
+        }
+      ],
+    })
+  )
 
-type {contract_struct}SmartContract struct {{
-  contractapi.Contract
-}}
+  return response.json()["choices"][0]["message"]["content"]
 
-type SampleAsset struct {{
-  ID    string `json:"id"`
-  Value string `json:"value"`
-}}
+def hubungi_mistral():
+  client = Mistral(api_key="btoHd0ZMZq3iOX8QPr80OPulAc20aRfq")
+  file_prompt = baca_file_prompt()
 
-func (s *{contract_struct}SmartContract) CreateAsset(ctx contractapi.TransactionContextInterface, id string, value string) error {{
-  asset := SampleAsset{{ID: id, Value: value}}
-  assetBytes, err := json.Marshal(asset)
-  if err != nil {{
-    return err
-  }}
-  return ctx.GetStub().PutState(id, assetBytes)
-}}
-
-func (s *{contract_struct}SmartContract) ReadAsset(ctx contractapi.TransactionContextInterface, id string) (*SampleAsset, error) {{
-  data, err := ctx.GetStub().GetState(id)
-  if err != nil {{
-    return nil, err
-  }}
-  if data == nil {{
-    return nil, nil
-  }}
-  var asset SampleAsset
-  err = json.Unmarshal(data, &asset)
-  if err != nil {{
-    return nil, err
-  }}
-  return &asset, nil
-}}
-"""
-
-# === FUNCTIONS ===
-
-def create_directory_structure(base_dir):
-  os.makedirs(base_dir, exist_ok=True)
-
-def write_file(path, content):
-  with open(path, "w") as f:
-    f.write(content)
-
-def generate_chaincode(name):
-  nama_modul = "chaincode-" + name
-  print(f"🔧 Generating chaincode: {nama_modul}")
-  base_dir = f"../chaincodes/{nama_modul}"
-  create_directory_structure(base_dir)
-
-  # Write go.mod
-  write_file(os.path.join(base_dir, "go.mod"), GO_MOD_TEMPLATE.format(module_name=nama_modul))
-
-  # Write smart contract file
-  contract_dir = os.path.join(base_dir, name)
-  os.makedirs(contract_dir, exist_ok=True)
-
-  contract_file_path = os.path.join(contract_dir, f"{name}.go")
-  write_file(contract_file_path, CONTRACT_GO_TEMPLATE.format(
-    contract_file=name,
-    contract_struct=name.capitalize()
-  ))
-
-  # Write main.go
-  write_file(os.path.join(base_dir, "main.go"), MAIN_GO_TEMPLATE.format(
-    module_name=nama_modul,
-    contract_file=name,
-    contract_type=name,
-    contract_struct=name.capitalize()
-  ))
-
-  # Run go mod tidy & vendor
-  subprocess.run(["go", "mod", "tidy"], cwd=base_dir, check=True)
-  subprocess.run(["go", "mod", "vendor"], cwd=base_dir, check=True)
-
-  print(f"Chaincode '{name}' generated in: {base_dir}\n")
+  chat_response = client.chat.complete(
+    model= "mistral-large-latest",
+    messages = [
+      {
+        "role": "user",
+        "content": file_prompt,
+      },
+    ]
+  )
+  
+  return chat_response.choices[0].message.content
 
 if __name__ == "__main__":
   for i in range(1):
-    generate_chaincode("uwu")
+    # hasil_prompt = hubungi_mistral()
+    hasil_prompt = hubungi_deepseek()
+
+    buat_file_dari_prompt(hasil_prompt, "../chaincodes")
+
+    time.sleep(1)
