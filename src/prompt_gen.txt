@@ -60,6 +60,6 @@ these are some notes for dependencies:
 2. go.mod use `require github.com/hyperledger/fabric-contract-api-go/v2 v2.2.0`
 3. main.go and <chaincode_name>.go use `github.com/hyperledger/fabric-contract-api-go/v2/contractapi`
 
-chaincode themes can be varied but not limited to: user profile, book registry, device monitor, student record, product catalog, car ownership, vote system, task manager, event logger, IoT status, shipment tracker, message board, appointment scheduler, coupon manager, bug tracker, etc
+chaincode themes can be varied but not limited to: supply chain tracking, healthcare records, voting system, university course enrollment, vehicle registration, property ownership, insurance claim processing, warehouse inventory, employee performance tracking, loan application system, etc
 
-with all that being said, make 1 full low complexity chaincode. dont name the module with "low complexity" or something like that
+with all that being said, make 1 full medium complexity chaincode. dont name the module with "medium complexity" or something like that
