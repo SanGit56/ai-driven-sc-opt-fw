@@ -40,7 +40,7 @@ def kirim_cc_sesuai_rekom(file_rekom, ssh_kunci):
           ssh.connect(hostname=ip, username=ssh_pengguna, key_filename=f'/home/loadbalancer/.ssh/id_rsa')
 
           with SCPClient(ssh.get_transport()) as scp:
-            scp.put(alamat_cc_terkemas, remote_path=f'/home/{ssh_pengguna}/ai-driven-sc-opt-fw/packaged_cc')
+            scp.put(alamat_cc_terkemas, remote_path=f'/home/{ssh_pengguna}/Documents/ai-driven-sc-opt-fw/packaged_cc')
 
           ssh.close()
           print(f'Terkirim ke {peer}')
