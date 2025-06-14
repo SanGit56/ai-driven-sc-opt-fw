@@ -60,6 +60,6 @@ these are some notes for dependencies:
 2. go.mod use `require github.com/hyperledger/fabric-contract-api-go/v2 v2.2.0`
 3. main.go and <chaincode_name>.go use `github.com/hyperledger/fabric-contract-api-go/v2/contractapi`
 
-chaincode themes can be varied but not limited to: cross-border trade settlement, decentralized identity management, digital rights management, inter-bank payment processing, pharmaceutical supply verification, smart city resource coordination, energy trading platform, multi-party insurance settlement, nationwide land registry, etc
+chaincode themes can be varied but not limited to: cross-border trade settlement, decentralized identity management, digital rights management, inter-bank payment processing, pharmaceutical supply verification, smart city resource coordination, multi-party insurance settlement, nationwide land registry, etc
 
 with all that being said, make 1 full high complexity chaincode. dont name the module with "high complexity" or something like that, use unique names

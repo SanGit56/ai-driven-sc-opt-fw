@@ -70,7 +70,7 @@ def hubungi_deepseek():
   return response.json()["choices"][0]["message"]["content"]
 
 def hubungi_mistral():
-  client = Mistral(api_key="")
+  client = Mistral(api_key="VgkzSDG8KJRSCuMP3flIKLxF3d5jsQgA")
   file_prompt = baca_file_prompt()
 
   chat_response = client.chat.complete(
@@ -86,10 +86,10 @@ def hubungi_mistral():
   return chat_response.choices[0].message.content
 
 if __name__ == "__main__":
-  for i in range(2):
-    # hasil_prompt = hubungi_mistral()
-    hasil_prompt = hubungi_deepseek()
+  for i in range(3):
+    hasil_prompt = hubungi_mistral()
+    # hasil_prompt = hubungi_deepseek()
 
     buat_file_dari_prompt(hasil_prompt, "../chaincodes")
 
-    time.sleep(1)
+    time.sleep(7)
