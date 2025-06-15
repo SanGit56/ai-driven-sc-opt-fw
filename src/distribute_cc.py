@@ -48,7 +48,7 @@ def kirim_cc_sesuai_rekom(file_rekom, ssh_kunci):
           print(f'Gagal mengirim {nama_cc}.tar.gz ke {peer}: {e}')
 
 if __name__ == "__main__":
-  file_rekom = "rekom_cc_peer.txt"
+  file_rekom = "rekom_deepseek.txt"
   ssh_kunci = os.path.expanduser('/home/loadbalancer/.ssh/id_rsa')
 
   kirim_cc_sesuai_rekom(file_rekom, ssh_kunci)

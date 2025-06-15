@@ -1,5 +1,0 @@
-taskmanager->peer0
-chaincode-uwu->peer0
-chaincode-tes->peer0
-bookregistry->peer0
-chaincode-go->peer0

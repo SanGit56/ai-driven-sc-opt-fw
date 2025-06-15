@@ -1,6 +1,7 @@
 import tarfile
 import os
 import subprocess
+import time
 
 def kemas_chaincode(alamat_cc, nama_keluaran):
   nama_tar = nama_keluaran + ".tar.gz"
@@ -12,6 +13,7 @@ def kemas_chaincode(alamat_cc, nama_keluaran):
 
   os.makedirs(dir_keluaran, exist_ok=True)
   alamat_keluaran = os.path.join(dir_keluaran, nama_tar)
+  waktu_mulai = time.time()
 
   subprocess.run([
     "peer", "lifecycle", "chaincode", "package", alamat_keluaran,
@@ -20,7 +22,9 @@ def kemas_chaincode(alamat_cc, nama_keluaran):
     "--label", nama_label
   ], check=True)
 
-  print(f"Chaincode '{alamat_cc}' dikemas menjadi '{alamat_keluaran}'")
+  waktu_selesai = time.time()
+  durasi = waktu_selesai - waktu_mulai
+  print(f"Chaincode '{alamat_cc}' dikemas menjadi '{alamat_keluaran} selama {durasi:.2f} detik'")
 
 def daftar_folder_chaincode(alamat_dir):
   folders = []
@@ -35,8 +39,10 @@ def daftar_folder_chaincode(alamat_dir):
 
 if __name__ == "__main__":
   folder_chaincode = "../chaincodes"
+  waktu_mulai = time.time()
 
-  daftar_folder = daftar_folder_chaincode(folder_chaincode)
-  print(f"[Folder dalam folder {folder_chaincode}]")
-  for fo in daftar_folder:
-    print(fo)
+  daftar_folder_chaincode(folder_chaincode)
+  
+  waktu_selesai = time.time()
+  durasi = waktu_selesai - waktu_mulai
+  print(f"Durasi total penyebaran: {durasi:.2f} detik")

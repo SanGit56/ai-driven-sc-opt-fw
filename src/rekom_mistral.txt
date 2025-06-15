@@ -1,0 +1,9 @@
+insuranceclaim->peer1
+cargotracker->peer2
+courseenrollment->peer1
+electorchain->peer1
+carbon_market->peer2
+assettransfer->peer0
+smartcity_congestion->peer2
+userprofile->peer0
+gradebook->peer0

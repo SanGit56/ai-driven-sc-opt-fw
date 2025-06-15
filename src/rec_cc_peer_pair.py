@@ -37,7 +37,7 @@ def hubungi_deepseek(file_chaincode):
   return response.json()["choices"][0]["message"]["content"]
 
 def hubungi_mistral(file_chaincode):
-  client = Mistral(api_key="btoHd0ZMZq3iOX8QPr80OPulAc20aRfq")
+  client = Mistral(api_key="VgkzSDG8KJRSCuMP3flIKLxF3d5jsQgA")
   file_prompt = baca_file("prompt_rec.txt")
   file_cc = baca_file(file_chaincode)
 
@@ -55,6 +55,7 @@ def hubungi_mistral(file_chaincode):
 
 def get_file_smartcontract(dir_dasar='../chaincodes'):
   file_smartcontract = []
+  waktu_mulai = time.time()
 
   for dir_chaincode in os.listdir(dir_dasar):
     alamat_cc = os.path.join(dir_dasar, dir_chaincode)
@@ -68,16 +69,31 @@ def get_file_smartcontract(dir_dasar='../chaincodes'):
 
       files = os.listdir(alamat_full_subdir)
       if len(files) == 1 and files[0].endswith('.go'):
+
         file_smartcontract.append(os.path.join(alamat_full_subdir, files[0]))
+
+  waktu_selesai = time.time()
+  durasi = waktu_selesai - waktu_mulai
+  print(f"Durasi pencarian: {durasi:.2f} detik")
 
   return file_smartcontract
 
 if __name__ == "__main__":
   file_sc = get_file_smartcontract()
+  waktu_mulai = time.time()
+
   for f in file_sc:
-    print(f)
+    waktu_mulai = time.time()
     # hasil_prompt = hubungi_mistral(f)
     hasil_prompt = hubungi_deepseek(f)
 
-    buat_file_rekom("rekom_cc_peer.txt", hasil_prompt)
-    time.sleep(5)
+    waktu_selesai = time.time()
+    durasi = waktu_selesai - waktu_mulai
+    print(f"Durasi analisis: {durasi:.2f} detik")
+
+    buat_file_rekom("rekom_deepseek.txt", hasil_prompt)
+    time.sleep(3)
+  
+  waktu_selesai = time.time()
+  durasi = waktu_selesai - waktu_mulai
+  print(f"Durasi total penyebaran: {durasi:.2f} detik")

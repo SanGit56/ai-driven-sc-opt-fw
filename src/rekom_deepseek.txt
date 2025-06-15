@@ -1,0 +1,14 @@
+insuranceclaim->peer1
+cargotracker->peer2
+courseenrollment->peer1
+electorchain->peer1
+carbonchain->peer2
+assettransfer->peer0
+globalidentity->peer2
+smartcity_congestion->peer2
+appointments->peer0
+auctionhouse->peer0
+simpleuserprofile->peer0
+multileg-nexus->peer2
+sapphireid->peer2
+energytrade->peer1
