@@ -33,7 +33,7 @@ setGlobals() {
       export CORE_PEER_ADDRESS=10.125.176.96:8051
       echo $CORE_PEER_ADDRESS
     elif [ "$PEER" -eq 2 ]; then
-      export CORE_PEER_ADDRESS=10.125.175.105:9051
+      export CORE_PEER_ADDRESS=10.125.175.158:9051
       echo $CORE_PEER_ADDRESS
     else
       errorln "Peer${PEER} in Org1 not recognized"
