@@ -7,13 +7,8 @@ PeerOrgs:
       Start: 0
       SANS:
         - 10.125.176.28
-<<<<<<< HEAD
         - 10.125.176.96
-        - 10.125.175.105
-=======
-        - 10.125.176.79
         - 10.125.175.158
->>>>>>> refs/remotes/origin/main
         - peer0.org1.example.com
         - peer1.org1.example.com
         - peer2.org1.example.com
