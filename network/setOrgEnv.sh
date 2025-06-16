@@ -24,7 +24,7 @@ if [[ "$ORG_LOWER" == "org1" || "$ORG_LOWER" == "digibank" ]]; then
       export CORE_PEER_ADDRESS="10.125.176.79:8051"
       ;;
     2)
-      export CORE_PEER_ADDRESS="10.125.175.105:9051"
+      export CORE_PEER_ADDRESS="10.125.175.158:9051"
       ;;
     *)
       echo "Error: Peer${PEER} in Org1 is not recognized."
