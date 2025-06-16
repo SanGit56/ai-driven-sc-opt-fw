@@ -2,7 +2,7 @@ peer:
   id: peer1.org1.example.com
   networkId: dev
   listenAddress: 0.0.0.0:8051
-  address: 10.125.176.79:8051
+  address: 10.125.176.96:8051
   addressAutoDetect: false
   gateway:
     enabled: true
@@ -24,7 +24,7 @@ peer:
     useLeaderElection: false
     orgLeader: true
     membershipTrackerInterval: 5s
-    endpoint: 10.125.176.79:8051
+    endpoint: 10.125.176.96:8051
     maxBlockCountToStore: 10
     maxPropagationBurstLatency: 10ms
     maxPropagationBurstSize: 10
@@ -49,7 +49,7 @@ peer:
     reconnectInterval: 25s
     maxConnectionAttempts: 120
     msgExpirationFactor: 20
-    externalEndpoint: 10.125.176.79:8051
+    externalEndpoint: 10.125.176.96:8051
     election:
       startupGracePeriod: 15s
       membershipSampleInterval: 1s

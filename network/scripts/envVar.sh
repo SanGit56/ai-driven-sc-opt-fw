@@ -30,7 +30,7 @@ setGlobals() {
       export CORE_PEER_ADDRESS=10.125.176.28:7051
       echo $CORE_PEER_ADDRESS
     elif [ "$PEER" -eq 1 ]; then
-      export CORE_PEER_ADDRESS=10.125.176.79:8051
+      export CORE_PEER_ADDRESS=10.125.176.96:8051
       echo $CORE_PEER_ADDRESS
     elif [ "$PEER" -eq 2 ]; then
       export CORE_PEER_ADDRESS=10.125.175.105:9051
