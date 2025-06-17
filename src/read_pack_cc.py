@@ -45,4 +45,4 @@ if __name__ == "__main__":
   
   waktu_selesai = time.time()
   durasi = waktu_selesai - waktu_mulai
-  print(f"Durasi total penyebaran: {durasi:.2f} detik")
+  print(f"Durasi total pengemasan: {durasi:.2f} detik")

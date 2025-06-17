@@ -20,7 +20,7 @@ def hubungi_deepseek(file_chaincode):
   response = requests.post(
     url="https://openrouter.ai/api/v1/chat/completions",
     headers={
-      "Authorization": "Bearer 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",
+      "Authorization": "Bearer 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",
       "Content-Type": "application/json",
     },
     data=json.dumps({
@@ -37,7 +37,7 @@ def hubungi_deepseek(file_chaincode):
   return response.json()["choices"][0]["message"]["content"]
 
 def hubungi_mistral(file_chaincode):
-  client = Mistral(api_key="VgkzSDG8KJRSCuMP3flIKLxF3d5jsQgA")
+  client = Mistral(api_key="RBZsFR8DNaC7yB47CjK1CnptxdCd07ah")
   file_prompt = baca_file("prompt_rec.txt")
   file_cc = baca_file(file_chaincode)
 
@@ -84,16 +84,16 @@ if __name__ == "__main__":
 
   for f in file_sc:
     waktu_mulai = time.time()
-    # hasil_prompt = hubungi_mistral(f)
-    hasil_prompt = hubungi_deepseek(f)
+    hasil_prompt = hubungi_mistral(f)
+    # hasil_prompt = hubungi_deepseek(f)
 
     waktu_selesai = time.time()
     durasi = waktu_selesai - waktu_mulai
     print(f"Durasi analisis: {durasi:.2f} detik")
 
-    buat_file_rekom("rekom_deepseek.txt", hasil_prompt)
+    buat_file_rekom("rekom_mistral.txt", hasil_prompt)
     time.sleep(3)
   
   waktu_selesai = time.time()
   durasi = waktu_selesai - waktu_mulai
-  print(f"Durasi total penyebaran: {durasi:.2f} detik")
+  print(f"Durasi total analisis: {durasi:.2f} detik")
