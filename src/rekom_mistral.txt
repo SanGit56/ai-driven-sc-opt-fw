@@ -35,3 +35,8 @@ patient_record->peer0
 supplychainfinance->peer2
 insurance_claim->peer0
 trade_settlement->peer0
+multi-party-insurance-settlement->peer1
+simplevote->peer0
+medicalsupplychain->peer1
+inventorytracker->peer0
+decentralized_identity_nexus->peer1
