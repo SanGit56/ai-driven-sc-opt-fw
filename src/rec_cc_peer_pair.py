@@ -84,14 +84,14 @@ if __name__ == "__main__":
 
   for f in file_sc:
     waktu_mulai = time.time()
-    hasil_prompt = hubungi_mistral(f)
-    # hasil_prompt = hubungi_deepseek(f)
+    # hasil_prompt = hubungi_mistral(f)
+    hasil_prompt = hubungi_deepseek(f)
 
     waktu_selesai = time.time()
     durasi = waktu_selesai - waktu_mulai
     print(f"Durasi analisis: {durasi:.2f} detik")
 
-    buat_file_rekom("rekom_mistral.txt", hasil_prompt)
+    buat_file_rekom("rekom_deepseek.txt", hasil_prompt)
     time.sleep(3)
   
   waktu_selesai = time.time()

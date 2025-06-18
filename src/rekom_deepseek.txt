@@ -9,7 +9,7 @@ coupon_manager->peer0
 healthlink->peer0
 sovereignidentity->peer2
 carcc->peer0
-energy-trading-platform->peer0
+energy-trading-platform->peer1
 taskchaincode->peer0
 simple_message_board->peer0
 autocert->peer0
@@ -17,7 +17,7 @@ warehousetracker->peer0
 supplychain->peer0
 employeeattendance->peer0
 shipmenttracker->peer0
-autoverse_vehicle_registry->peer0
+autoverse_vehicle_registry->peer1
 vote_system->peer0
 productcatalog->peer0
 loanapproval->peer0
@@ -29,10 +29,10 @@ employeeperformance->peer0
 appointmentscheduler->peer0
 simpleAsset->peer0
 vehicle-registry->peer0
-inventorychain->peer0
+inventorychain->peer1
 patient_record->peer0
 supplychainfinance->peer2
-multi-party-insurance-settlement->peer0
+multi-party-insurance-settlement->peer1
 trade_settlement->peer0
 simplevote->peer0
 insurance_claim->peer1
@@ -41,3 +41,15 @@ inventorytracker->peer0
 decentralized_identity_nexus->peer2
 student_cc->peer0
 assetregistry->peer0
+healthrecord->peer0
+devicemonitor->peer0
+chaincode-uwu->peer0
+bugtracker->peer0
+chaincode-tes->peer0
+interbank-payment->peer1
+decentralized-id-platform->peer2
+bookregistry->peer0
+chaincode-go->peer0
+pharmaledger->peer1
+iotstatus->peer0
+decentralizedid->peer2
