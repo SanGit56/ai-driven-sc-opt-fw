@@ -27,13 +27,13 @@ setGlobals() {
     echo $CORE_PEER_MSPCONFIGPATH
 
     if [ "$PEER" -eq 0 ]; then
-      export CORE_PEER_ADDRESS=10.125.176.28:7051
+      export CORE_PEER_ADDRESS=10.125.178.58:7051
       echo $CORE_PEER_ADDRESS
     elif [ "$PEER" -eq 1 ]; then
       export CORE_PEER_ADDRESS=10.125.176.96:8051
       echo $CORE_PEER_ADDRESS
     elif [ "$PEER" -eq 2 ]; then
-      export CORE_PEER_ADDRESS=10.125.175.158:9051
+      export CORE_PEER_ADDRESS=10.125.178.62:9051
       echo $CORE_PEER_ADDRESS
     else
       errorln "Peer${PEER} in Org1 not recognized"

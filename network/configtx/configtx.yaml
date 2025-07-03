@@ -36,7 +36,7 @@ Organizations:
         Type: Signature
         Rule: "OR('Org1MSP.peer')"
     AnchorPeers:
-      - Host: 10.125.175.158
+      - Host: 10.125.178.62
         Port: 9051
 Capabilities:
   Channel: &ChannelCapabilities
