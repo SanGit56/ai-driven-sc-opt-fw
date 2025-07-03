@@ -5,11 +5,11 @@ CPU(s): 1
 
 [memory]
         total   used   free shared  buff/cache  available
-Mem:    1903    688    474    8        741         1060
+Mem:    1903    665    513    8        725         1079
 
 [disk]
 Filesystem  Size  Used Avail Use% Mounted on
-/dev/sda3   20G   17G  1,8G  91%    /
+/dev/sda3   20G   18G  806M  96%    /
 
 peer1...
 [cpu]
@@ -17,11 +17,11 @@ CPU(s): 2
 
 [memory]
         total   used   free shared  buff/cache  available
-Mem:    3916    991    1540    11       1384        2692
+Mem:    3916    1008    1047    12       1861        2668
 
 [disk]
 Filesystem  Size  Used Avail Use% Mounted on
-/dev/sda3   49G   19G   28G  41%    /
+/dev/sda3   49G   18G   28G  40%    /
 
 peer2...
 [cpu]
@@ -29,11 +29,11 @@ CPU(s): 4
 
 [memory]
         total   used   free shared  buff/cache  available
-Mem:    7941    955   5399    75    1586        6673
+Mem:    7941    955   5384    12    1602        6736
 
 [disk]
 Filesystem  Size  Used Avail Use% Mounted on
-/dev/sda3   98G   17G   76G  18%    /
+/dev/sda3   98G   17G   76G  19%    /
 
 with peers resources are defined. now lets define chaincode complexity:
 - low = can be run in peer0

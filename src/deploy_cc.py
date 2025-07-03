@@ -21,7 +21,7 @@ def sebar_chaincode(directory):
 if __name__ == "__main__":
 	waktu_mulai = time.time()
 
-	for i in range(20):
+	for i in range(1):
 		sebar_chaincode("../network")
 
 	waktu_selesai = time.time()
