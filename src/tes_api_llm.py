@@ -6,7 +6,7 @@ def hubungi_deepseek():
   response = requests.post(
     url="https://openrouter.ai/api/v1/chat/completions",
     headers={
-      "Authorization": "Bearer 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",
+      "Authorization": "",
       "Content-Type": "application/json",
     },
     data=json.dumps({
@@ -23,7 +23,7 @@ def hubungi_deepseek():
   return response.json()["choices"][0]["message"]["content"]
 
 def hubungi_mistral():
-  api_key = "btoHd0ZMZq3iOX8QPr80OPulAc20aRfq"
+  api_key = ""
   model = "mistral-large-latest"
 
   client = Mistral(api_key=api_key)

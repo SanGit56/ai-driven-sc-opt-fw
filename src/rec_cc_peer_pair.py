@@ -20,7 +20,7 @@ def hubungi_deepseek(file_chaincode):
   response = requests.post(
     url="https://openrouter.ai/api/v1/chat/completions",
     headers={
-      "Authorization": "Bearer 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",
+      "Authorization": "",
       "Content-Type": "application/json",
     },
     data=json.dumps({
@@ -37,7 +37,7 @@ def hubungi_deepseek(file_chaincode):
   return response.json()["choices"][0]["message"]["content"]
 
 def hubungi_mistral(file_chaincode):
-  client = Mistral(api_key="DScVOmM2gqLVWSLnKvR702iethQG0o2M")
+  client = Mistral(api_key="")
   file_prompt = baca_file("prompt_rec.txt")
   file_cc = baca_file(file_chaincode)
 
